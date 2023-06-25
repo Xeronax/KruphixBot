@@ -17,8 +17,6 @@ function getColor(parsedCard) {
 
     let color;
 
-    console.log(parsedCard)
-
     try {
 
         if(!parsedCard.colors || parsedCard.colors.length == 0){
@@ -35,6 +33,8 @@ function getColor(parsedCard) {
                 color = colors.get('LAND');
     
             }
+
+            return color;
     
         } else if (parsedCard.colors.length > 1) {
     

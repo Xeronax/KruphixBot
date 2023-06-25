@@ -2,18 +2,22 @@
 A utils script dedicated to doing a bunch of checks regarding special case Magic cards
 such as double-faced cards and flip cards.
 */
-const emojiMap = require('./emojis');
-const { parse } = require('dotenv');
-const { embedCard } = require('./cardEmbed');
+const emojiMap = require('./emojis')
+const { parse } = require('dotenv')
+const { embedCard } = require('./cardEmbed')
 
 function toTitleCase(str) {
+    
     return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+
 }
 
 function replaceManaSymbolsWithEmojis(text) {
     return text.replace(/{(\d+|[a-z]{1,2})}/gi, function(match, group1) {
+
         const emoji = emojiMap.get(group1.toLowerCase());
         return emoji ? `<${emoji}>` : match;
+
     });
 }
 
@@ -21,26 +25,25 @@ function italicTextInParentheses(text) {
     return text.replace(/\((.*?)\)/g, '($1)').replace(/\((.*?)\)/g, '*($1)*');
   }
  
-  function parseCardJson(cardArray, index) {
+  function parseCardJson(card) {
 
-    const cardJsonString = JSON.stringify(cardArray[index]); //Convert to JSON string
+    const cardJsonString = JSON.stringify(card); //Convert to JSON string
     
     return JSON.parse(cardJsonString);
 
 }
 
-function getNeighbors(cardArray, index) {
+function setNeighbors(cardArray) {
 
-    prevCard = parseCardJson(cardArray, (index - 1 + cardArray.length) % cardArray.length) //Add length to handle negative numbers
-    nextCard = parseCardJson(cardArray, (index + 1) % cardArray.length)
+    for(let [index, card] of cardArray.entries()) {
 
-    return {
+        card.nextCard = cardArray[(index + 1) % cardArray.length];
 
-        'previousCard': prevCard.name ?? prevCard.card_faces[0].name ?? null,
-        'nextCard': nextCard.name ?? nextCard.card_faces[0].name ?? null,
-        'hits': cardArray.length
+        //Creates distinct endpoints to indicate end of results 
+        if(index + 1 > cardArray.length) { card.nextCard = null }
 
-    }  
+    }
+
 }
   
 function formatCardDetails(face) {
@@ -63,43 +66,51 @@ function formatCardDetails(face) {
 
 module.exports = {
 
-    formatCard: function(cardArray, index) {
+    formatCard: function(cardArray) {
 
-        const parsedCard = parseCardJson(cardArray, index);
+        var formattedArray = [];
 
-        var embed_ready;
+        for (let [index, card] of cardArray.entries()) {
 
-        if(parsedCard.card_faces) { 
+            const parsedCard = parseCardJson(card);
+            var formattedCard;
 
-            //console.log('----------------------------------------------FACES------------------------------------------------')
-            //console.log('FRONT\n', parsedCard.card_faces[0])
-            const face1 = parsedCard.card_faces[0]
-            //console.log('BACK\n', parsedCard.card_faces[1])
-            const face2 = parsedCard.card_faces[1]
+            if(parsedCard.card_faces) { 
 
-            embed_ready = {
-
-                front : formatCardDetails(face1),
-                back : formatCardDetails(face2),
-                dfc: true,
-                image_urls : parsedCard.image_uris,
-                colors : parsedCard.colors
-
+                const face1 = parsedCard.card_faces[0];
+                const face2 = parsedCard.card_faces[1];
+    
+                formattedCard = {
+    
+                    front : formatCardDetails(face1),
+                    back : formatCardDetails(face2),
+                    dfc: true,
+                    image_urls : parsedCard.image_uris,
+                    colors : parsedCard.colors,
+                    artist : parsedCard.artist
+    
+                }
+    
+            } else {
+    
+                formattedCard = formatCardDetails(parsedCard);
+                formattedCard.colors = parsedCard.colors;
+                formattedCard.artist = parsedCard.artist;
+    
             }
 
-        } else {
+            formattedCard.set = parsedCard.set.toUpperCase() ?? "";
+            formattedCard.rarity = toTitleCase(parsedCard.rarity) ?? formattedCard.rarity;
+            formattedCard.scryfall_url = parsedCard.scryfall_uri ?? formattedCard.scryfall_url;
 
-            embed_ready = formatCardDetails(parsedCard)
-            embed_ready.colors = parsedCard.colors
+            formattedArray[index] = formattedCard;
 
         }
-        embed_ready.set = parsedCard.set.toUpperCase() ?? "";
-        embed_ready.rarity = toTitleCase(parsedCard.rarity) ?? embed_ready.rarity;
-        embed_ready.scryfall_url = parsedCard.scryfall_uri ?? embed_ready.scryfall_url;
-        embed_ready.neighbors = getNeighbors(cardArray, index);
-        console.log(embed_ready.neighbors)
 
-        return embed_ready;
+        setNeighbors(formattedArray);
+
+        return formattedArray;
 
     }
+
 }

@@ -7,11 +7,15 @@ module.exports = {
     searchName: async function (query) {
 
         try {
+
             const response = await axios.get(`${scryfallApi}/cards/search`, {
                 params: {
+
                   q: query,
+
                 },
             });
+            
             return response.data.data;
 
         } catch(error) {

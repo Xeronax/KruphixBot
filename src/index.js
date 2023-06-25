@@ -27,29 +27,45 @@ const client = new Client({
 	#State Handling#
 */
 
-// Map to store the card message, card arrays, and the index that message is at currently in the array of cards
-client.messageStates = new Map()
+// Map to store various information about the bot's replies
+client.messageStates = new Map();
 
 // Create a new state and add it to the messageStates map
-client.createState = function(message, cards) {
+client.createState = function(cards, message = null, embeddedCard = null) {
+
     const state = {
+
         cards: cards,
         currentIndex: 0,
-        msg: message
+        msg: message,
+		embed: embeddedCard,
+		image: false,
+		hits: cards.length ?? 0
+
     };
 
-    console.log(`Creating state for message id: ${message.id}`)
-    client.messageStates.set(message.id, state);
+	let tempID = 0;
+    while(tempID == 0 || client.messageStates.has(tempID))
+	{
+
+		tempID = Math.random().toString();
+
+	}
+
+	client.messageStates.set(tempID, state);
+
+	return { tempID, state };
+
 }
 
-// Fetch a state by messageId from the messageStates map
-client.getState = function(messageId) {
-    return client.messageStates.get(messageId)
-}
+client.replaceState = function(originalMessageID, newMessageID) {
 
-// Delete a state by messageId from the messageStates map
-client.deleteState = function(messageId) {
-    client.messageStates.delete(messageId)
+	const state = client.messageStates.get(originalMessageID);
+	client.messageStates.set(newMessageID, state);
+	client.messageStates.delete(originalMessageID);
+
+	console.log(`Replacing ${originalMessageID} with ${newMessageID}`);
+
 }
 
 /*
@@ -92,6 +108,8 @@ for (const file of eventFiles) {
 
 console.log(process.env.TOKEN)
 client.login('MTA5OTA2NjQ2MzIzNjY3MzYyNg.GJgBsF.id4tFcfwI984GDnR2H-ELDWk3zrMEaazx46G7A');
+
+module.exports = client
 
 //Invite Link: https://discord.com/api/oauth2/authorize?client_id=1099066463236673626&permissions=1634235578432&scope=bot%20applications.commands
 //Token: MTA5OTA2NjQ2MzIzNjY3MzYyNg.GJgBsF.id4tFcfwI984GDnR2H-ELDWk3zrMEaazx46G7A

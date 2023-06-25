@@ -1,49 +1,60 @@
 //cardPagination.js
 const { Events } = require('discord.js')
+const { displayCard } = require('../utils/displayCard.js')
+
+// Handle button interactions
+async function handleButtonInteraction(interaction) {
+
+    const client = interaction.client;
+
+    // Confirm the state exists for the interaction
+    if(!client.messageStates.has(interaction.message.id)) { return }
+
+    // Defer the update so interaction does not fail due to timeout
+    await interaction.deferUpdate();
+
+    console.log(`Handling button interaction for message id: ${interaction.message.id}`);
+
+    // Get the state for the current interaction
+    const state = client.messageStates.get(interaction.message.id);
+
+    try {
+
+        const cards = state.cards;
+
+        // Handle next and previous card interactions
+        switch(interaction.customId) {
+            case 'nextCard':
+                // Update currentIndex to show the next card
+                state.currentIndex = (state.currentIndex + 1) % cards.length;
+                state.embed = null;
+                displayCard(interaction, {}, client);
+                break;
+            
+            case 'prevCard':
+                // Update currentIndex to show the previous card
+                state.currentIndex = (state.currentIndex - 1 + cards.length) % cards.length //Add length to handle negative numbers
+                state.embed = null;
+                displayCard(interaction, {}, client);
+                break;
+            
+            case 'fullImage':
+
+                state.embed = null;
+                state.image = !state.image;
+                displayCard(interaction, {}, client);
+
+        };
 
 
-    // // Handle button interactions
-    // handleButtonInteraction: async function(interaction) {
-    //     // Confirm the state exists for the interaction
-    //     if(!messageStates.has(interaction.message.id)) { return }
 
-    //     // Defer the update so interaction does not fail due to timeout
-    //     await interaction.deferUpdate();
+    } catch(e) {
 
-    //     console.log(`Handling button interaction for message id: ${interaction.message.id}`);
+        console.error(`Button handling failed. Error: ${e.stack}`)
 
-    //     // Get the state for the current interaction
-    //     const state = getState(interaction.message.id);
-
-    //     try {
-    //         const cards = state.cards;
-
-    //         // Handle next and previous card interactions
-    //         switch(interaction.customId) {
-    //             case 'nextCard':
-    //                 // Update currentIndex to show the next card
-    //                 state.currentIndex = (state.currentIndex + 1) % cards.length;
-    //                 break;
-                
-    //             case 'prevCard':
-    //                 // Update currentIndex to show the previous card
-    //                 state.currentIndex = (state.currentIndex - 1 + cards.length) % cards.length //Add length to handle negative numbers
-    //                 break;
-    //         };
-
-    //         const formattedCard = formatCard(cards, state.currentIndex);
-    //         const embeddedCard = embedCard(formattedCard)
-    //         // Update the reply with the current card information
-    //         interaction.editReply({
-
-    //             embeds: embeddedCard
-
-    //         })
-    //     } catch(e) {
-    //         console.error(`Button handling failed. Error: ${e.stack}`)
-    //     }
-    // }
-
+    }
+    
+}
 
 module.exports = {
 
