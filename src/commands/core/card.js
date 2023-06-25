@@ -1,3 +1,6 @@
+/*
+    /Card command, pull a card from Scryfall and display it for the user
+*/
 // Import required modules and components
 const { SlashCommandBuilder } = require('discord.js')
 const Scryfall = require("../../utils/scry.js");

@@ -106,10 +106,4 @@ for (const file of eventFiles) {
 	}
 }
 
-console.log(process.env.TOKEN)
-client.login('MTA5OTA2NjQ2MzIzNjY3MzYyNg.GJgBsF.id4tFcfwI984GDnR2H-ELDWk3zrMEaazx46G7A');
-
-module.exports = client
-
-//Invite Link: https://discord.com/api/oauth2/authorize?client_id=1099066463236673626&permissions=1634235578432&scope=bot%20applications.commands
-//Token: MTA5OTA2NjQ2MzIzNjY3MzYyNg.GJgBsF.id4tFcfwI984GDnR2H-ELDWk3zrMEaazx46G7A
+client.login(process.env.TOKEN);
