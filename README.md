@@ -1,4 +1,4 @@
-# KruphixBot
+# Kruphix Bot
 
 KruphixBot is a Discord bot that fetches and displays information about Magic: The Gathering cards.
 
