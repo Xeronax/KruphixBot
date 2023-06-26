@@ -19,7 +19,7 @@ To add KruphixBot to your server, [click here](<https://discord.com/api/oauth2/a
 
 ## Feedback
 
-If you encounter any issues or have any suggestions for improvements, please open an issue on this GitHub repository.
+If you encounter any issues or have any suggestions for improvements, please open an issue on this GitHub repository or message xeronax on Discord.
 
 ## Planned Features
 
