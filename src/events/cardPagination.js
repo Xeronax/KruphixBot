@@ -10,13 +10,17 @@ async function handleButtonInteraction(interaction) {
     // Confirm the state exists for the interaction
     if(!client.messageStates.has(interaction.message.id)) { return }
 
-    // Defer the update so interaction does not fail due to timeout
-    await interaction.deferUpdate();
-
     console.log(`Handling button interaction for message id: ${interaction.message.id}`);
 
     // Get the state for the current interaction
     const state = client.messageStates.get(interaction.message.id);
+
+    //Confirm that the user creating the interaction is the owner of the message
+    if(interaction.user.id != state.author.id) { return }
+
+    // Defer the update so interaction does not fail due to timeout
+    await interaction.deferUpdate();
+
 
     try {
 

@@ -22,7 +22,7 @@ function createFooter(parsedCard, flags) {
 
     if(flags.image) {
 
-        footer = `${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)} by ${parsedCard.artist ?? 'Unknown'}`;
+        footer = `${parsedCard.artist ?? 'Unknown'}`;
         return footer;
 
     }
@@ -127,6 +127,8 @@ function embed_image(parsedCard, flags = {} ) {
     }
 
     const card_embed = new EmbedBuilder()
+        .setTitle(`${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)}`)
+        .setURL(`${parsedCard.scryfall_url}`)
         .setColor(color)
         .setImage(image_url)
         .setFooter( { text: createFooter(parsedCard, flags) } )

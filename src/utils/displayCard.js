@@ -27,14 +27,21 @@ const buildActionRow = (len, flags = {}) => {
 
     }
 
-    row.addComponents(
+    let imageButton = new ButtonBuilder()
+        .setCustomId('fullImage')
+        .setStyle(ButtonStyle.Secondary)
 
-        new ButtonBuilder()
-            .setCustomId('fullImage')
-            .setEmoji('🔍')
-            .setStyle(ButtonStyle.Secondary)
+    if(!flags.image){
 
-    )
+        imageButton.setEmoji('🔍');
+
+    } else {
+
+        imageButton.setEmoji('📄');
+
+    }
+
+    row.addComponents(imageButton)
 
     return row; 
     
@@ -61,22 +68,26 @@ module.exports = {
                 
             });
     
-            let msg = await interaction.fetchReply();
-            client.replaceState(mappedState.tempID, msg.id)
+            mappedState.state.message = await interaction.fetchReply();
+
+            let newState = client.replaceState(mappedState.tempID, mappedState.state.message.id);
+            newState.state.author = flags.author ?? null;
 
         } else {
 
             const mappedState = client.messageStates.get(interaction.message.id);
-            const row = buildActionRow(mappedState.cards.length);
+            let row;
             
             if(mappedState.image) {
 
                 mappedState.embed = embedCard(mappedState.cards[mappedState.currentIndex], { hits: mappedState.hits, image: true });
+                row = buildActionRow(mappedState.cards.length, { image: true });
 
             } else {
 
                 //Create a new embed if there isn't one (nextCard/prevCard)
                 mappedState.embed = mappedState.embed ?? embedCard(mappedState.cards[mappedState.currentIndex], { hits: mappedState.hits });
+                row = buildActionRow(mappedState.cards.length);
 
             }
 

@@ -30,7 +30,7 @@ module.exports = {
 
         if(Array.isArray(cards)) {
 
-            displayCard(interaction, {cardArray: cards, index: 0}, interaction.client);
+            displayCard(interaction, {cardArray: cards, index: 0, flags: { author: interaction.user } }, interaction.client);
 
         } else {
 
