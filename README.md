@@ -32,7 +32,3 @@ If you encounter any issues or have any suggestions for improvements, please ope
 
 This project is licensed under the MIT License.
 
-## Support
-
-If you find this project useful and want to show your appreciation, you can buy me a coffee on [Ko-fi](<your-ko-fi-link>). Donations are entirely optional and greatly appreciated. They help support the ongoing development of this project.
-
