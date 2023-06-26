@@ -28,6 +28,8 @@ If you encounter any issues or have any suggestions for improvements, please ope
 - /feedback function
 - Fuzzy searches
 - Dual-image display for double-faced cards
+- Search judge rulings
+- What's in standard
 - Statistics and Graphing features allowing users to generate charts displaying information on vasts amounts of MtG card data
 
 ## License
