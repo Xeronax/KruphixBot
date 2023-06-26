@@ -62,5 +62,4 @@ const emojiMap = new Map([
 
 ]);
 
-
 module.exports = emojiMap

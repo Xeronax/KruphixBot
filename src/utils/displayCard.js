@@ -6,7 +6,6 @@ const { ButtonBuilder, ButtonStyle, ActionRowBuilder, MessageActionRow } = requi
 const { formatCard } = require('../utils/format.js');
 const { embedCard } = require('../utils/cardEmbed.js');
 
-
 // Build action row for card navigation
 const buildActionRow = (len, flags = {}) => {
     

@@ -12,6 +12,7 @@ const fetchCard = async (query) => {
 }
 // Exported module
 module.exports = {
+    
     // Define slash command
     data: new SlashCommandBuilder()
         .setName('card')
@@ -37,5 +38,7 @@ module.exports = {
             await interaction.reply("No cards were found with those search parameters.")
 
         }
+
     },
+
 }

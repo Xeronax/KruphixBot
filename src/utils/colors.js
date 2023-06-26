@@ -55,7 +55,6 @@ function getColor(parsedCard) {
         return colors.get('NONE');
 
     }
-
     
 }
 

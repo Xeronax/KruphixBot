@@ -16,6 +16,7 @@ function getNextCardName(parsedCard, i = 0) {
     return (parsedCard.name ?? parsedCard.front.name) + ' > ' + getNextCardName(parsedCard.nextCard, index);
 
 }
+
 function createFooter(parsedCard, flags) {
 
     let footer;
@@ -33,7 +34,6 @@ function createFooter(parsedCard, flags) {
     if(parsedCard.nextCard) { footer += ' > ' + getNextCardName(parsedCard.nextCard) }
 
     return footer; 
-
 
 }
 
@@ -134,6 +134,7 @@ function embed_image(parsedCard, flags = {} ) {
         .setFooter( { text: createFooter(parsedCard, flags) } )
     
     return card_embed;
+
 }
 
 module.exports = {
@@ -163,5 +164,7 @@ module.exports = {
             console.error(`Error embedding card: ${e.message}\nStack trace:\n${e.stack}`);
             
         }
+
     }
+
 }

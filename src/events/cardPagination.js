@@ -28,6 +28,7 @@ async function handleButtonInteraction(interaction) {
 
         // Handle next and previous card interactions
         switch(interaction.customId) {
+
             case 'nextCard':
                 // Update currentIndex to show the next card
                 state.currentIndex = (state.currentIndex + 1) % cards.length;
@@ -50,8 +51,6 @@ async function handleButtonInteraction(interaction) {
 
         };
 
-
-
     } catch(e) {
 
         console.error(`Button handling failed. Error: ${e.stack}`)
@@ -71,4 +70,5 @@ module.exports = {
         await handleButtonInteraction(interaction)
 
     }
+    
 }

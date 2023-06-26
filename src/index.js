@@ -75,14 +75,14 @@ client.replaceState = function(originalMessageID, newMessageID) {
 	let newState = client.createState(state.cards, state.message, state.embed ?? null);
 	client.messageStates.delete(originalMessageID);
 
-	console.log(`Replacing ${originalMessageID} with ${newMessageID}`);
+	//console.log(`Replacing ${originalMessageID} with ${newMessageID}`);
 
 	return newState
 
 }
 
 /*
-	#Commands & Events#
+	#Commands & Events# (taken from Discord.js guide)
 */
 
 client.commands = new Collection();

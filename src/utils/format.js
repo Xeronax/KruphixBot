@@ -22,10 +22,12 @@ function replaceManaSymbolsWithEmojis(text) {
 }
 
 function italicTextInParentheses(text) {
+
     return text.replace(/\((.*?)\)/g, '($1)').replace(/\((.*?)\)/g, '*($1)*');
+    
   }
  
-  function parseCardJson(card) {
+function parseCardJson(card) {
 
     const cardJsonString = JSON.stringify(card); //Convert to JSON string
     
@@ -39,7 +41,7 @@ function setNeighbors(cardArray) {
 
         card.nextCard = cardArray[(index + 1) % cardArray.length];
 
-        //Creates distinct endpoints to indicate end of results 
+        //Creates distinct endpoint to indicate end of results without preventing user from pressing button
         if(index + 1 > cardArray.length) { card.nextCard = null }
 
     }
@@ -60,6 +62,7 @@ function formatCardDetails(face) {
         toughness : face.toughness ?? "",
         
     }
+
 }
 
 

@@ -1,7 +1,6 @@
 const axios = require('axios')
 const scryfallApi = 'https://api.scryfall.com'
 
-
 module.exports = {
 
     searchName: async function (query) {
@@ -26,7 +25,6 @@ module.exports = {
         };
     
     }
-
 
 }
 
