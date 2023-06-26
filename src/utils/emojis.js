@@ -33,7 +33,7 @@ const emojiMap = new Map([
     ["c", ":manac:1109856059465670767"],
     ["chaos", ":manachaos:"],
     ["e", ":manae:"],
-    ["g", ":manaG:230914932223246336"],
+    ["g", ":manag:1109883240015216720"],
     ["gp", ":managp:"],
     ["gu", ":managu:"],
     ["gw", ":managw:"],

@@ -24,7 +24,7 @@ function replaceManaSymbolsWithEmojis(text) {
 function italicTextInParentheses(text) {
 
     return text.replace(/\((.*?)\)/g, '($1)').replace(/\((.*?)\)/g, '*($1)*');
-    
+
   }
  
 function parseCardJson(card) {
@@ -42,7 +42,7 @@ function setNeighbors(cardArray) {
         card.nextCard = cardArray[(index + 1) % cardArray.length];
 
         //Creates distinct endpoint to indicate end of results without preventing user from pressing button
-        if(index + 1 > cardArray.length) { card.nextCard = null }
+        if(index + 1 >= cardArray.length) { card.nextCard = null }
 
     }
 
