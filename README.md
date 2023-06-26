@@ -1,4 +1,4 @@
-# KruphixBot
+# Kruphix Bot
 
 KruphixBot is a Discord bot that fetches and displays information about Magic: The Gathering cards.
 
@@ -19,7 +19,7 @@ To add KruphixBot to your server, [click here](<https://discord.com/api/oauth2/a
 
 ## Feedback
 
-If you encounter any issues or have any suggestions for improvements, please open an issue on this GitHub repository.
+If you encounter any issues or have any suggestions for improvements, please open an issue on this GitHub repository or message xeronax on Discord.
 
 ## Planned Features
 
@@ -31,8 +31,4 @@ If you encounter any issues or have any suggestions for improvements, please ope
 ## License
 
 This project is licensed under the MIT License.
-
-## Support
-
-If you find this project useful and want to show your appreciation, you can buy me a coffee on [Ko-fi](<your-ko-fi-link>). Donations are entirely optional and greatly appreciated. They help support the ongoing development of this project.
 
