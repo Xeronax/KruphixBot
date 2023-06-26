@@ -13,6 +13,8 @@ KruphixBot is a Discord bot that fetches and displays information about Magic: T
 
 - `/card <query>`: Fetches a card with the specified name or Scryfall syntax and displays its details.
 
+- ![Screenshot](docs/KB_Fig1.png) ![Screenshot](docs/KB_Fig2.png)
+
 ## Getting Started
 
 To add Kruphix Bot to your server, [click here](<https://discord.com/api/oauth2/authorize?client_id=1099066463236673626&permissions=277025704960&scope=bot%20applications.commands>).
