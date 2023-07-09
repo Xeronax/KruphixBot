@@ -13,11 +13,13 @@ const colors = new Map([
 
 ])
 
-function getColor(parsedCard) {
+function getColor(parsedCard = null) {
 
     let color;
 
     try {
+
+        if(parsedCard == null) return colors.get('NONE');
 
         if(!parsedCard.colors || parsedCard.colors.length == 0){
 

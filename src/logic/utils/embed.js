@@ -2,8 +2,39 @@
 A script dedicated to handling the creation and configuration of the embed
 */
 const { EmbedBuilder } = require("discord.js");
-const Colors = require('./colors.js');
+const Colors = require('../card/colors.js');
 const { parse } = require("dotenv");
+
+
+module.exports = {
+
+    createEmbed: function(embedTarget, flags = {}) {
+
+        //console.log(embedTarget)
+
+        if(flags.ruling) {
+
+            return [ embedRuling(embedTarget, flags) ];
+
+        }
+
+        if(flags.image) {
+
+            return [ embedImage(embedTarget, flags) ];
+
+        }
+
+        if(embedTarget.dfc) {
+
+            return [ embedDfc(embedTarget, flags) ];
+
+        }
+
+         return [ embedNormal(embedTarget, flags) ];
+
+    }
+
+}
 
 function getNextCardName(parsedCard, i = 0) {
 
@@ -37,7 +68,7 @@ function createFooter(parsedCard, flags) {
 
 }
 
-function embed_dfc(parsedCard, flags = {}) {
+function embedDfc(parsedCard, flags = {}) {
 
     let cardDetails = `**${parsedCard.front.type_line}**    (${parsedCard.set} ${parsedCard.rarity})`;
     if(parsedCard.front.oracle_text) {
@@ -68,19 +99,19 @@ function embed_dfc(parsedCard, flags = {}) {
       }
       
     const footer = createFooter(parsedCard, flags);
-    const card_embed = new EmbedBuilder()
+    const embed = new EmbedBuilder()
         .setColor(Colors(parsedCard.front))
         .setThumbnail(parsedCard.front.image_urls.normal)
         .setTitle(`${parsedCard.front.name} ${parsedCard.front.mana_cost}`)
         .setURL(`${parsedCard.scryfall_url}`)
         .setDescription(cardDetails)
-        if(footer) { card_embed.setFooter({ text: footer }) }
+        if(footer) { embed.setFooter({ text: footer }) }
 
-    return card_embed;
+    return embed;
 
 }
 
-function embed_normal(parsedCard, flags = {}) {
+function embedNormal(parsedCard, flags = {}) {
 
     let cardDetails = `**${parsedCard.type_line}**   (${parsedCard.set} ${parsedCard.rarity})`;
 
@@ -99,19 +130,19 @@ function embed_normal(parsedCard, flags = {}) {
     }
     
     let footer = createFooter(parsedCard, flags);
-    const card_embed = new EmbedBuilder()
+    const embed = new EmbedBuilder()
     .setColor(Colors(parsedCard))
     .setThumbnail(parsedCard.image_urls.normal)
     .setTitle(`${parsedCard.name} ${parsedCard.mana_cost}`)
     .setURL(`${parsedCard.scryfall_url}`)
     .setDescription(cardDetails)
-    if(footer) { card_embed.setFooter({ text: footer }) }
+    if(footer) { embed.setFooter({ text: footer }) }
     
-    return card_embed;
+    return embed;
 
 }
 
-function embed_image(parsedCard, flags = {} ) {
+function embedImage(parsedCard, flags = {} ) {
 
     let image_url, color;
     if(parsedCard.dfc) {
@@ -126,45 +157,28 @@ function embed_image(parsedCard, flags = {} ) {
 
     }
 
-    const card_embed = new EmbedBuilder()
+    const embed = new EmbedBuilder()
         .setTitle(`${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)}`)
         .setURL(`${parsedCard.scryfall_url}`)
         .setColor(color)
         .setImage(image_url)
         .setFooter( { text: createFooter(parsedCard, flags) } )
     
-    return card_embed;
+    return embed;
 
 }
 
-module.exports = {
+function embedRuling(ruling, flags = {}) {
 
-    embedCard: function(parsedCard, flags = {}) {
+    const title = ruling.match('^__\\*\\*([0-9]{1,3})\\.?[0-9]?[a-z]?\\*\\*__')?.[0]?.replace(/[*_]+/g, '');
+    const embed = new EmbedBuilder()
+        .setTitle(`CR — Rule ${title}`)
+        .setURL(`https://yawgatog.com/resources/magic-rules/#R${title.replace(/[.]+/g, '')}`)
+        .setColor(Colors())
+        .setDescription(ruling)
+        .setThumbnail('https://static1.gamerantimages.com/wordpress/wp-content/uploads/2020/02/magic-the-gathering-logo.jpg')
 
-        console.log(parsedCard)
-
-        try {
-
-            if(flags.image) {
-
-                return [ embed_image(parsedCard, flags) ];
-
-            }
-
-            if(parsedCard.dfc) {
-
-                return [ embed_dfc(parsedCard, flags) ];
-
-            }
-
-             return [ embed_normal(parsedCard, flags) ];
-
-        } catch(e) {
-
-            console.error(`Error embedding card: ${e.message}\nStack trace:\n${e.stack}`);
-            
-        }
-
-    }
+    return embed;
 
 }
+

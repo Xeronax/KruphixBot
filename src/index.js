@@ -31,16 +31,16 @@ const client = new Client({
 client.messageStates = new Map();
 
 // Create a new state and add it to the messageStates map
-client.createState = function(cards, messageArg = null, embeddedCard = null) {
+client.createState = function(data, messageArg = null, embed = null) {
 
     const state = {
 
-        cards: cards,
+        data: data,
         currentIndex: 0,
         message: messageArg,
-		embed: embeddedCard,
+		embed: embed,
 		image: false,
-		hits: cards.length ?? 0,
+		hits: data?.length ?? 0,
 		author: null
 
     };
@@ -69,15 +69,13 @@ client.createState = function(cards, messageArg = null, embeddedCard = null) {
 
 }
 
-client.replaceState = function(originalMessageID, newMessageID) {
+client.replaceState = function(originalMessageID) {
 
-	const state = client.messageStates.get(originalMessageID);
-	let newState = client.createState(state.cards, state.message, state.embed ?? null);
+	let tempState = client.messageStates.get(originalMessageID);
+	client.messageStates.set(tempState.message.id, tempState);
 	client.messageStates.delete(originalMessageID);
 
-	//console.log(`Replacing ${originalMessageID} with ${newMessageID}`);
-
-	return newState
+	return tempState
 
 }
 

@@ -3,8 +3,8 @@
 */
 // Import required modules and components
 const { SlashCommandBuilder } = require('discord.js')
-const Scryfall = require("../../utils/scry.js");
-const { displayCard } = require('../../utils/displayCard.js');
+const Scryfall = require("../../logic/card/scry.js");
+const { displayCard } = require('../../logic/card/displayCard.js');
 
 // Fetch card information from the Scryfall API
 const fetchCard = async (query) => {
@@ -12,7 +12,7 @@ const fetchCard = async (query) => {
 }
 // Exported module
 module.exports = {
-    
+
     // Define slash command
     data: new SlashCommandBuilder()
         .setName('card')
@@ -31,7 +31,7 @@ module.exports = {
 
         if(Array.isArray(cards)) {
 
-            displayCard(interaction, {cardArray: cards, index: 0, flags: { author: interaction.user } }, interaction.client);
+            displayCard(interaction, { cardArray: cards }, interaction.client);
 
         } else {
 

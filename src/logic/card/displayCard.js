@@ -4,7 +4,7 @@
 */
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder, MessageActionRow } = require('discord.js')
 const { formatCard } = require('../utils/format.js');
-const { embedCard } = require('../utils/cardEmbed.js');
+const { createEmbed } = require('../utils/embed.js');
 
 // Build action row for card navigation
 const buildActionRow = (len, flags = {}) => {
@@ -42,57 +42,64 @@ const buildActionRow = (len, flags = {}) => {
 
     row.addComponents(imageButton)
 
+    row.addComponents(
+        new ButtonBuilder()
+            .setCustomId('close')
+            .setEmoji('❌')
+            .setStyle(ButtonStyle.Secondary)
+    )
+ 
+
     return row; 
     
 }
 
 module.exports = {
 
-    displayCard: async function(interaction, { cardArray = null, index = 0, flags = {} }, client) {
+    displayCard: async function(interaction, { cardArray = null, flags = {} }, client) {
 
         if(Array.isArray(cardArray)) {
 
             const formattedCards = formatCard(cardArray);
             const row = buildActionRow(cardArray.length);
 
-            const mappedState = client.createState(formattedCards);
-            mappedState.hits = cardArray.length;
-            mappedState.state.embed = embedCard(formattedCards[index], { hits: mappedState.state.hits });
+            const statePackage = client.createState(formattedCards);
+            statePackage.state.hits = cardArray.length;
+            statePackage.state.embed = createEmbed(formattedCards[index], { hits: statePackage.state.hits });
 
             await interaction.reply({
 
-                embeds: mappedState.state.embed,
+                embeds: statePackage.state.embed,
                 components: [row],
                 fetchReply: true
                 
             });
     
-            mappedState.state.message = await interaction.fetchReply();
+            statePackage.state.message = await interaction.fetchReply();
 
-            let newState = client.replaceState(mappedState.tempID, mappedState.state.message.id);
-            newState.state.author = flags.author ?? null;
+            let newStatePackage = client.replaceState(statePackage.tempID);
+            newStatePackage.state.author = interaction?.user ?? null;
 
         } else {
 
-            const mappedState = client.messageStates.get(interaction.message.id);
+            const state = client.messageStates.get(interaction.message.id);
             let row;
             
-            if(mappedState.image) {
+            if(state.image) {
 
-                mappedState.embed = embedCard(mappedState.cards[mappedState.currentIndex], { hits: mappedState.hits, image: true });
-                row = buildActionRow(mappedState.cards.length, { image: true });
+                state.embed = createEmbed(state.data[state.currentIndex], { hits: state.hits, image: true });
+                row = buildActionRow(state.data.length, { image: true });
 
             } else {
 
-                //Create a new embed if there isn't one (nextCard/prevCard)
-                mappedState.embed = mappedState.embed ?? embedCard(mappedState.cards[mappedState.currentIndex], { hits: mappedState.hits });
-                row = buildActionRow(mappedState.cards.length);
+                state.embed = state.embed ?? createEmbed(state.data[state.currentIndex], { hits: state.hits });
+                row = buildActionRow(state.data.length);
 
             }
 
             await interaction.editReply({
 
-                embeds: mappedState.embed,
+                embeds: state.embed,
                 components: [row],
 
             });

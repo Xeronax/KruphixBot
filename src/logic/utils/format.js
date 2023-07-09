@@ -2,9 +2,8 @@
 A utils script dedicated to doing a bunch of checks regarding special case Magic cards
 such as double-faced cards and flip cards.
 */
-const emojiMap = require('./emojis')
+const emojiMap = require('../card/emojis')
 const { parse } = require('dotenv')
-const { embedCard } = require('./cardEmbed')
 
 function toTitleCase(str) {
     
