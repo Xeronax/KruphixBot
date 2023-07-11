@@ -7,6 +7,7 @@ const Discord = require('discord.js')
 const axios = require('axios');
 const fs = require('node:fs')
 const path = require('node:path')
+const server = require('./server')
 
 
 const { Client, Collection, Events, GatewayIntentBits, IntentsBitField, Emoji} = require('discord.js');
@@ -22,6 +23,8 @@ const client = new Client({
 
     ]
 });
+
+
 
 /*
 	#State Handling#
@@ -65,6 +68,7 @@ client.createState = function(data, messageArg = null, embed = null) {
 
 	client.messageStates.set(tempID, state);
 
+	//this returns a weird object, but it works, will probably change later
 	return { tempID, state };
 
 }

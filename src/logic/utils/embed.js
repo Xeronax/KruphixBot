@@ -3,7 +3,7 @@ A script dedicated to handling the creation and configuration of the embed
 */
 const { EmbedBuilder } = require("discord.js");
 const Colors = require('../card/colors.js');
-const { parse } = require("dotenv");
+const { merge } = require('../card/mergeDfc.js');
 
 
 module.exports = {
@@ -97,11 +97,14 @@ function embedDfc(parsedCard, flags = {}) {
       if (parsedCard.back.power && parsedCard.back.toughness) {
         cardDetails += `**\n${parsedCard.back.power}/${parsedCard.back.toughness}**`;
       }
+
+    const mergedDfcImage = merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
+        { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name });
       
     const footer = createFooter(parsedCard, flags);
     const embed = new EmbedBuilder()
         .setColor(Colors(parsedCard.front))
-        .setThumbnail(parsedCard.front.image_urls.normal)
+        .setThumbnail(mergedDfcImage ?? parsedCard.front.image_urls.normal)
         .setTitle(`${parsedCard.front.name} ${parsedCard.front.mana_cost}`)
         .setURL(`${parsedCard.scryfall_url}`)
         .setDescription(cardDetails)

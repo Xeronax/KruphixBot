@@ -56,8 +56,11 @@ const buildActionRow = (len, flags = {}) => {
 
 module.exports = {
 
+    
+    //A function to format and embed a card, then display it to the user
     displayCard: async function(interaction, { cardArray = null, flags = {} }, client) {
 
+        //If the cardArray is null, then we are editing a message
         if(Array.isArray(cardArray)) {
 
             const formattedCards = formatCard(cardArray);
@@ -65,7 +68,7 @@ module.exports = {
 
             const statePackage = client.createState(formattedCards);
             statePackage.state.hits = cardArray.length;
-            statePackage.state.embed = createEmbed(formattedCards[index], { hits: statePackage.state.hits });
+            statePackage.state.embed = createEmbed(formattedCards[statePackage.state.currentIndex], { hits: statePackage.state.hits });
 
             await interaction.reply({
 
@@ -77,8 +80,8 @@ module.exports = {
     
             statePackage.state.message = await interaction.fetchReply();
 
-            let newStatePackage = client.replaceState(statePackage.tempID);
-            newStatePackage.state.author = interaction?.user ?? null;
+            let newState = client.replaceState(statePackage.tempID);
+            newState.author = interaction?.user ?? null;
 
         } else {
 

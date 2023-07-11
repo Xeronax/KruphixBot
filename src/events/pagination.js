@@ -63,15 +63,21 @@ async function handleButtonInteraction(interaction) {
                 break;
 
             case 'scrollDown': 
-    
+                //Scroll down a ruling
                 state.currentIndex++;
                 displayRule(interaction, client);
                 break;
             
             case 'scrollUp':
-                
+                //Scroll up a ruling
                 state.currentIndex--;
                 displayRule(interaction, client);
+                break;
+            
+            case 'close':
+                //Delete the message
+                client.messageStates.delete(interaction.message.id);
+                interaction.message.delete();
                 break;
 
         };
