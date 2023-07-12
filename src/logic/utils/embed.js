@@ -68,7 +68,7 @@ function createFooter(parsedCard, flags) {
 
 }
 
-function embedDfc(parsedCard, flags = {}) {
+async function embedDfc(parsedCard, flags = {}) {
 
     let cardDetails = `**${parsedCard.front.type_line}**    (${parsedCard.set} ${parsedCard.rarity})`;
     if(parsedCard.front.oracle_text) {
@@ -98,7 +98,7 @@ function embedDfc(parsedCard, flags = {}) {
         cardDetails += `**\n${parsedCard.back.power}/${parsedCard.back.toughness}**`;
       }
 
-    const mergedDfcImage = merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
+    const mergedDfcImage = await merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
         { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name });
       
     const footer = createFooter(parsedCard, flags);
