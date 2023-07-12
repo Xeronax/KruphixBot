@@ -149,11 +149,11 @@ function embedNormal(parsedCard, flags = {}) {
 
 async function embedImage(parsedCard, flags = {} ) {
 
-    let image_url, color;
+    let image_url, color, mergedDfcImage;
     if(parsedCard.dfc) {
 
         image_url = parsedCard.front.image_urls.normal;
-        const mergedDfcImage = await merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
+        mergedDfcImage = await merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
             { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name });
         color = Colors(parsedCard.front);
 
