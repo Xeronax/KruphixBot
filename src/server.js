@@ -28,18 +28,20 @@ module.exports = {
     getImage: function(name) {
 
         if(!port) return null;
-        
+
         const imagePath = `http://${ip}:${port}/imageDump/${name}`;
         console.log(`Grabbing imagePath from: ${imagePath}`);
 
         return imagePath;
+
     }
+    
 }
 
 function startServer(){
 
     const app = express();
-    app.use(express.static('/imageDump'));
+    app.use('/imageDump', express.static(__dirname + '/src/imageDump'));
     app.listen(port, () => console.log(`Server running on port ${port}`));
 
 }
