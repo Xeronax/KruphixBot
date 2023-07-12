@@ -15,7 +15,9 @@ module.exports = {
         const frontPath = await downloadImage(front.imageUrl, front.name);
         const backPath = await downloadImage(back.imageUrl, back.name);
 
-        return await mergeFaces(frontPath, backPath);
+        const mergedImageFilePath = await mergeFaces(frontPath, backPath);
+
+        return getImage(mergedImageFilePath);
 
     }
 
@@ -93,10 +95,10 @@ async function mergeFaces( frontPath, backPath ) {
                     
                     console.log("Merged image saved!");
                     
-                    resolve(getImage(outputFilePath.replace(/.\/src\/imageDump\//, '')));
+                    resolve(outputFilePath.replace(/.\/src\/imageDump\//, ''));
     
                 }
-                
+
             })
 
         })

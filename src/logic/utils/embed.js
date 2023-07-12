@@ -20,7 +20,7 @@ module.exports = {
 
         if(flags.image) {
 
-            return [ embedImage(embedTarget, flags) ];
+            return [ await embedImage(embedTarget, flags) ];
 
         }
 
