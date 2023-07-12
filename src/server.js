@@ -42,7 +42,7 @@ function startServer(){
 
     const app = express();
     app.use('/imageDump', express.static(__dirname + '/imageDump'));
-    console.log(`Establishing ${__dirname} with '/src/imageDump`);
+    console.log(`Establishing ${__dirname} with '/imageDump`);
     app.listen(port, () => console.log(`Server running on port ${port}`));
 
 }
