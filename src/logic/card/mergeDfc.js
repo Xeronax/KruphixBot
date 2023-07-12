@@ -91,7 +91,7 @@ function mergeFaces( frontPath, backPath ) {
                 
                 console.log("Merged image saved!");
                 
-                return getImage(outputFilePath.replace(/\/src\/imageDump\//, ''))
+                return getImage(outputFilePath.replace(/.\/src\/imageDump\//, ''))
 
             }
         })
