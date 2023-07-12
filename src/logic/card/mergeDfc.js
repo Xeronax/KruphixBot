@@ -15,7 +15,7 @@ module.exports = {
         const frontPath = await downloadImage(front.imageUrl, front.name);
         const backPath = await downloadImage(back.imageUrl, back.name);
 
-        return mergeFaces(frontPath, backPath);
+        return await mergeFaces(frontPath, backPath);
 
     }
 
@@ -57,7 +57,7 @@ async function downloadImage(url, cardName) {
 
 }
 
-function mergeFaces( frontPath, backPath ) {
+async function mergeFaces( frontPath, backPath ) {
 
     mergeImages([ 
 

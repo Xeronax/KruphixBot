@@ -101,7 +101,7 @@ async function embedDfc(parsedCard, flags = {}) {
     const mergedDfcImage = await merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
         { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name });
 
-    console.log("Got DFC Address: ", mergedDfcImage);
+    console.log(`Got DFC URL: ${mergedDfcImage}`);
       
     const footer = createFooter(parsedCard, flags);
     const embed = new EmbedBuilder()
