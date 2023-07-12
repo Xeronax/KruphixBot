@@ -18,8 +18,8 @@ async function handleButtonInteraction(interaction) {
     // Get the state for the current interaction
     const state = client.messageStates.get(interaction.message.id);
 
-    console.log('-----------Interaction User----------')
-    console.log(interaction.user);
+    //console.log('-----------Interaction User----------')
+    //console.log(interaction.user);
     // console.log('-----------State Author----------------')
     // console.log(state.author)
 
@@ -84,7 +84,7 @@ async function handleButtonInteraction(interaction) {
 
     } catch(e) {
 
-        console.error(`Button handling failed. Error: ${e.stack}`)
+        console.error(`Button handling failed. Error:\n${e.stack}`)
 
     }
     

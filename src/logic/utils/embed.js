@@ -168,7 +168,7 @@ async function embedImage(parsedCard, flags = {} ) {
         .setTitle(`${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)}`)
         .setURL(`${parsedCard.scryfall_url}`)
         .setColor(color)
-        .setImage(image_url)
+        .setImage(mergedDfcImage ?? image_url)
         .setFooter( { text: createFooter(parsedCard, flags) } )
     
     return embed;
