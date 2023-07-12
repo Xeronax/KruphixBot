@@ -59,7 +59,7 @@ async function downloadImage(url, cardName) {
 
 async function mergeFaces( frontPath, backPath ) {
 
-    mergeImages([ 
+    return mergeImages([ 
 
         { src: frontPath, x: 0, y: 0 },
         { src: backPath, x: 488, y: 0 }
@@ -80,21 +80,27 @@ async function mergeFaces( frontPath, backPath ) {
         const outputFilePath = `.\/src\/imageDump\/${frontPath.replace(/.\/src\/imageDump\//, '').replace(/\.png/, '')}-${backPath.replace(/.\/src\/imageDump\//, '')}`;
         console.log(outputFilePath);
 
-        fs.writeFile(outputFilePath, bufferData, 'binary', err => {
+        return new Promise((resolve, reject) => {
 
-            if(err) {
+            fs.writeFile(outputFilePath, bufferData, 'binary', err => {
 
-                console.error(`${err.message}\n${err.stack}`);
-                return null;
-
-            } else {
+                if(err) {
+    
+                    console.error(`${err.message}\n${err.stack}`);
+                    reject(err);
+    
+                } else {
+                    
+                    console.log("Merged image saved!");
+                    
+                    resolve(getImage(outputFilePath.replace(/.\/src\/imageDump\//, '')));
+    
+                }
                 
-                console.log("Merged image saved!");
-                
-                return getImage(outputFilePath.replace(/.\/src\/imageDump\//, ''))
+            })
 
-            }
         })
+
     })
     .catch(err => {
         
