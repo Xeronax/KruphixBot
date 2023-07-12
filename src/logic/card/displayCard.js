@@ -68,7 +68,7 @@ module.exports = {
 
             const statePackage = client.createState(formattedCards);
             statePackage.state.hits = cardArray.length;
-            statePackage.state.embed = createEmbed(formattedCards[statePackage.state.currentIndex], { hits: statePackage.state.hits });
+            statePackage.state.embed = await createEmbed(formattedCards[statePackage.state.currentIndex], { hits: statePackage.state.hits });
 
             await interaction.reply({
 
@@ -90,12 +90,12 @@ module.exports = {
             
             if(state.image) {
 
-                state.embed = createEmbed(state.data[state.currentIndex], { hits: state.hits, image: true });
+                state.embed = await createEmbed(state.data[state.currentIndex], { hits: state.hits, image: true });
                 row = buildActionRow(state.data.length, { image: true });
 
             } else {
 
-                state.embed = state.embed ?? createEmbed(state.data[state.currentIndex], { hits: state.hits });
+                state.embed = state.embed ?? await createEmbed(state.data[state.currentIndex], { hits: state.hits });
                 row = buildActionRow(state.data.length);
 
             }

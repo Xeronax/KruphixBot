@@ -8,7 +8,7 @@ const { merge } = require('../card/mergeDfc.js');
 
 module.exports = {
 
-    createEmbed: function(embedTarget, flags = {}) {
+    createEmbed: async function(embedTarget, flags = {}) {
 
         //console.log(embedTarget)
 
@@ -26,7 +26,7 @@ module.exports = {
 
         if(embedTarget.dfc) {
 
-            return [ embedDfc(embedTarget, flags) ];
+            return [ await embedDfc(embedTarget, flags) ];
 
         }
 
@@ -100,6 +100,8 @@ async function embedDfc(parsedCard, flags = {}) {
 
     const mergedDfcImage = await merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
         { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name });
+
+    console.log("Got DFC Address: ", mergedDfcImage);
       
     const footer = createFooter(parsedCard, flags);
     const embed = new EmbedBuilder()
