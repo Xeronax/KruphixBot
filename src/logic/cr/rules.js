@@ -19,7 +19,7 @@ module.exports = {
 
                 const foundRule = rulesText.match(reg);
                 let finalText = ''
-                let boldRuleRegExp = new RegExp(`^([0-9]{1,3})\.?[0-9]?[a-z]?`, 'gm');
+                let boldRuleRegExp = new RegExp(`^([0-9]{1,3})\.?[0-9]{0,3}[a-z]?`, 'gm');
 
                 for(let text of foundRule) {
                     
@@ -39,11 +39,11 @@ module.exports = {
                     
                 }
                 
-                let embed = createEmbed(ruleChunks?.[0] ?? finalText, { ruling: true });
+                let embed = await createEmbed(ruleChunks?.[0] ?? finalText, { ruling: true });
                 const statePackage = client.createState(ruleChunks ?? finalText, null, embed);
                 //console.log(interaction.user);
                 statePackage.state.author = interaction.user;
-                console.log(statePackage.state.author);
+                //console.log(statePackage.state.author);
                 const row = buildActionRow(statePackage.state)
 
                 interaction.reply({
@@ -69,7 +69,7 @@ module.exports = {
         } else {
 
             const state = client.messageStates.get(interaction.message.id);
-            state.embed = createEmbed(state.data?.[state.currentIndex], { ruling: true });
+            state.embed = await createEmbed(state.data?.[state.currentIndex], { ruling: true });
             const row = buildActionRow(state);
 
             interaction.editReply({
@@ -89,27 +89,18 @@ const buildActionRow = (state) => {
     
     let row = new ActionRowBuilder();
 
-    if(!(state.currentIndex >= state.data?.length - 1)) {
-
-        row.addComponents(
-            new ButtonBuilder()
-                .setCustomId('scrollDown')
-                .setEmoji('⬇️')
-                .setStyle(ButtonStyle.Secondary) 
-        );
-
-    } 
-    if(state.currentIndex > 0) {
-
-        row.addComponents(
-            new ButtonBuilder()
-                .setCustomId('scrollUp')
-                .setEmoji('⬆️')
-                .setStyle(ButtonStyle.Secondary)
-        );
-
-    }
-
+    row.addComponents(
+        new ButtonBuilder()
+            .setCustomId('scrollDown')
+            .setEmoji('⬇️')
+            .setStyle(ButtonStyle.Secondary) 
+    );
+    row.addComponents(
+        new ButtonBuilder()
+            .setCustomId('scrollUp')
+            .setEmoji('⬆️')
+            .setStyle(ButtonStyle.Secondary)
+    );
     row.addComponents(
         new ButtonBuilder()
             .setCustomId('close')

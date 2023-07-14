@@ -64,13 +64,13 @@ async function handleButtonInteraction(interaction) {
 
             case 'scrollDown': 
                 //Scroll down a ruling
-                state.currentIndex++;
+                if(state.currentIndex < state.data.length - 1) { state.currentIndex++ }
                 displayRule(interaction, client);
                 break;
             
             case 'scrollUp':
                 //Scroll up a ruling
-                state.currentIndex--;
+                if(state.currentIndex > 0) { state.currentIndex-- }
                 displayRule(interaction, client);
                 break;
             

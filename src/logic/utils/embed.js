@@ -5,6 +5,7 @@ const { EmbedBuilder } = require("discord.js");
 const Colors = require('../card/colors.js');
 const { merge } = require('../card/mergeDfc.js');
 
+const displayDfcImages = (process.env.PORT != '')
 
 module.exports = {
 
@@ -98,10 +99,16 @@ async function embedDfc(parsedCard, flags = {}) {
         cardDetails += `**\n${parsedCard.back.power}/${parsedCard.back.toughness}**`;
       }
 
-    const mergedDfcImage = await merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
-        { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name });
+    if(displayDfcImages) {
 
-    console.log(`Got DFC URL: ${mergedDfcImage}`);
+        var mergedDfcImage = await merge(
+            { imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
+            { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name }
+            );
+
+    }
+
+    //console.log(`Got DFC URL: ${mergedDfcImage}`);
       
     const footer = createFooter(parsedCard, flags);
     const embed = new EmbedBuilder()
@@ -153,8 +160,14 @@ async function embedImage(parsedCard, flags = {} ) {
     if(parsedCard.dfc) {
 
         image_url = parsedCard.front.image_urls.normal;
-        mergedDfcImage = await merge({ imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
-            { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name });
+        if(displayDfcImages) {
+
+            mergedDfcImage = await merge(
+                { imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
+                { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name }
+                );
+
+        }
         color = Colors(parsedCard.front);
 
     } else {
