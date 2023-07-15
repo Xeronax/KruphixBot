@@ -1,9 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
+const fs = require('fs')
 
-const helpMessage = '\*\*Kruphix Bot Commands\*\*\n' +
-    '\`\`/card\`\` - Find a Magic the Gathering card by name or Scryfall syntax. (i.e., \'pow > 5\', \'cmc = 2\', \'t:creature\')\n' +
-    '\`\`/cr\`\` - Find a Magic the Gathering rule by number or keyword. (i.e., \'100.6\', \'deathtouch\')\n' +
-    '\`\`/help\`\` - Get a comprehensive list of Kruphix Bot\'s commands.\n';
+const helpMessage = fs.readFile('../../logic/help.txt');
 
 module.exports = {
 
@@ -18,3 +16,4 @@ module.exports = {
     }
 
 }
+

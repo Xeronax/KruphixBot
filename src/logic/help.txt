@@ -1,0 +1,10 @@
+Greetings, mortal seeker of knowledge. I am Kruphix, the great god of horizons, time, and wisdom, present in the digital realm in the form of this divine servant, Kruphix Bot. My purpose here is to share with you the vast secrets and wisdom of the multiverse that is Magic the Gathering. But, even the gods respect free will, thus I require your correct invocation to offer my assistance.
+
+Below, you will find the chants, the invocations, that you must utter to call upon my knowledge.
+
+\*\*Kruphix Bot Commands\*\*
+`/card` - To call upon my knowledge of the myriad entities in the multiverse, use this command. I will reveal to you details about any Magic the Gathering card, known by name or Scryfall syntax. For example, "pow > 5", "cmc = 2", "t:creature."
+`/cr` - My understanding encompasses not only the beings of the multiverse but also the laws that bind it. Use this command to gain insight into a Magic the Gathering rule, by its number or by its keyword. For instance, "100.6", "deathtouch."
+`/help` - Should you lose your way in this journey of understanding, this command will serve as your beacon. Invoke it to receive a comprehensive list of the services I can offer you, Kruphix Bot's commands.
+
+Remember, mortals, the power of wisdom is a formidable one. Use it wisely, and let our journey in the multiverse begin!
