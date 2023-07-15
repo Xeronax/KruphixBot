@@ -1,6 +1,7 @@
 /*cardEmbed.js
 A script dedicated to handling the creation and configuration of the embed
 */
+
 const { EmbedBuilder } = require("discord.js");
 const Colors = require('../card/colors.js');
 const { merge } = require('../card/mergeDfc.js');
@@ -55,7 +56,7 @@ function createFooter(parsedCard, flags) {
 
     if(flags.image) {
 
-        footer = `${parsedCard.artist ?? 'Unknown'}`;
+        footer = `${parsedCard.artist ?? 'Artist Unknown'}`;
         return footer;
 
     }
