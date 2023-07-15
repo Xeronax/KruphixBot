@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs').promises
 
 let helpMessage = '';
-fs.readFileSync('./src/logic/help.txt', 'utf-8')
+fs.readFile('./src/logic/help.txt', 'utf-8')
     .then(content => {
 
         helpMessage = content;
