@@ -18,11 +18,16 @@ module.exports = {
 
     data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('Get a comprehensive list of Kruphix Bot\'s commands.'),
+        .setDescription('Get a comprehensive list of Kruphix Bot\'s features.'),
     
     async execute(interaction) {
 
-        interaction.user.send(helpMessage);
+        await interaction.reply({
+
+            message: helpMessage,
+            ephemeral: true,
+
+        })
 
     }
 

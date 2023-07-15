@@ -18,7 +18,7 @@ module.exports = {
             try {
 
                 const foundRule = rulesText.match(reg);
-                let finalText = ''
+                let finalText = '';
                 let boldRuleRegExp = new RegExp(`^([0-9]{1,3})\.?[0-9]{0,3}[a-z]?`, 'gm');
 
                 for(let text of foundRule) {
@@ -112,6 +112,7 @@ const buildActionRow = (state) => {
     
 }
 
+//A function to split up a large string into chunks.
 function chunkRules(rules) {
 
     let lines = rules.split('\n');
@@ -136,6 +137,7 @@ function chunkRules(rules) {
         }
 
         tempArr.push(line);
+
     }
 
     if(tempArr.length > 0)  chunks.push(tempArr.join('\n'));
