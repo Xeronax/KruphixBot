@@ -1,7 +1,11 @@
 const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs')
 
-const helpMessage = fs.readFile('../../logic/help.txt');
+const helpMessage = fs.readFile('../../logic/help.txt').then(result => {
+
+    return result;
+
+})
 
 module.exports = {
 
