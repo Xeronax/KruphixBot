@@ -1,11 +1,18 @@
 const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs')
 
-const helpMessage = fs.readFile('../../logic/help.txt').then(result => {
+let helpMessage = '';
+fs.readFile('./src/logic/help.txt', 'utf-8')
+    .then(content => {
 
-    return result;
+        helpMessage = content;
 
-})
+    })
+    .catch(error => {
+
+        console.error(`Error reading help text: ${error.message}\n${error.stack}`);
+
+    })
 
 module.exports = {
 
