@@ -109,7 +109,7 @@ async function embedDfc(parsedCard, flags = {}) {
 
     }
 
-    console.log(`Got DFC URL: ${mergedDfcImage}`);
+    //console.log(`Got DFC URL: ${mergedDfcImage}`);
       
     const footer = createFooter(parsedCard, flags);
     const embed = new EmbedBuilder()
