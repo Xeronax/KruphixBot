@@ -5,7 +5,7 @@ const { EmbedBuilder } = require("discord.js");
 const Colors = require('../card/colors.js');
 const { merge } = require('../card/mergeDfc.js');
 
-const displayDfcImages = (process.env.PORT != '')
+const noPort = process.env.PORT == ''
 
 module.exports = {
 
@@ -99,7 +99,7 @@ async function embedDfc(parsedCard, flags = {}) {
         cardDetails += `**\n${parsedCard.back.power}/${parsedCard.back.toughness}**`;
       }
 
-    if(displayDfcImages) {
+    if(!noPort) {
 
         var mergedDfcImage = await merge(
             { imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
