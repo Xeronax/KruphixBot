@@ -8,12 +8,14 @@ KruphixBot is a Discord bot that fetches and displays information about Magic: T
 - Display card details in a user-friendly format.
 - Navigate through multiple cards using buttons.
 - Display full card images.
-- Dual-image display for double-faced cards 
+- Dual-image display for double-faced cards
+- Display rulings
 
 ## Commands
 
 - `/card <query>`: Fetches a card with the specified name or Scryfall syntax and displays its details.
 - `/cr <rule>`: Fetches a rule by number. (Ex. '704', '104.1', '601.3a')
+- `/help`: Lists all of Kruphix Bot's features
 
 ## Feedback
 
