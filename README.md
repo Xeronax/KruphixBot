@@ -8,6 +8,7 @@ KruphixBot is a Discord bot that fetches and displays information about Magic: T
 - Display card details in a user-friendly format.
 - Navigate through multiple cards using buttons.
 - Display full card images.
+- Dual-image display for double-faced cards 
 
 ## Commands
 
@@ -20,11 +21,8 @@ If you encounter any issues or have any suggestions for improvements, please ope
 
 ## Planned Features
 
-- /feedback function
 - Fuzzy searches
 - Search suggestions
-- /cr function (Complete)
-- Dual-image display for double-faced cards
 - What's in standard
 - Statistics and Graphing features allowing users to generate charts displaying information on vasts amounts of MtG card data
 
