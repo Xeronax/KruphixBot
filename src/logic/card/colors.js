@@ -1,4 +1,5 @@
 //Colors map, credit to Judgebot for values
+
 const colors = new Map([
 
     ['W', 0xf8f6d8],
@@ -12,6 +13,8 @@ const colors = new Map([
     ['NONE', 0xdad9de],
 
 ])
+
+module.exports = getColor
 
 function getColor(parsedCard = null) {
 
@@ -63,5 +66,3 @@ function getColor(parsedCard = null) {
     }
     
 }
-
-module.exports = getColor

@@ -80,7 +80,19 @@ async function mergeFaces( frontPath, backPath ) {
         const bufferData = Buffer.from(base64Data, 'base64');
 
         const outputFilePath = `.\/src\/imageDump\/${frontPath.replace(/.\/src\/imageDump\//, '').replace(/\.png/, '')}-${backPath.replace(/.\/src\/imageDump\//, '')}`;
-        console.log(outputFilePath);
+
+        fs.unlink(frontPath, err => {
+
+            console.log(`Deleted${frontPath}`)
+            throw err;
+
+        })
+        fs.unlink(backPath, err => {
+
+            console.log(`Deleted${frontPath}`)
+            throw err;
+            
+        })
 
         return new Promise((resolve, reject) => {
 
