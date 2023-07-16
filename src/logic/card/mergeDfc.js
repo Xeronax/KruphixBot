@@ -84,14 +84,14 @@ async function mergeFaces( frontPath, backPath ) {
         fs.unlink(frontPath, err => {
 
             console.log(`Deleted${frontPath}`)
-            throw err;
+            if(err) throw err;
 
         })
         fs.unlink(backPath, err => {
 
             console.log(`Deleted${frontPath}`)
-            throw err;
-            
+            if(err) throw err;
+
         })
 
         return new Promise((resolve, reject) => {
