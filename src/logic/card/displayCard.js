@@ -95,7 +95,7 @@ module.exports = {
 
             } else {
 
-                state.embed = state.embed ?? await createEmbed(state.data[state.currentIndex], { hits: state.hits });
+                state.embed ??= await createEmbed(state.data[state.currentIndex], { hits: state.hits });
                 row = buildActionRow(state.data.length);
 
             }

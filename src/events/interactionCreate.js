@@ -17,6 +17,8 @@ module.exports = {
 			return;
 		}
 
+		console.log(`Handling ${interaction.commandName} for ${interaction.user}`)
+
 		try {
 
 			await command.execute(interaction);

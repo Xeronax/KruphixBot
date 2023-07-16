@@ -5,6 +5,7 @@
 const fs = require('fs').promises;
 const { createEmbed } = require('../utils/embed');
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder, MessageActionRow } = require('discord.js');
+let rulesText = '';
 
 module.exports = {
 
@@ -14,12 +15,11 @@ module.exports = {
 
             const rule = interaction.options.getString('rule');
             const reg = new RegExp(`^${rule}(\\.?[a-z]?)(\\. ?)?.*$`, `gm`);
+            const foundRule = rulesText.match(reg);
+            let finalText = '';
+            let boldRuleRegExp = new RegExp(`^([0-9]{1,3})\.?[0-9]{0,3}[a-z]?`, 'gm');
 
             try {
-
-                const foundRule = rulesText.match(reg);
-                let finalText = '';
-                let boldRuleRegExp = new RegExp(`^([0-9]{1,3})\.?[0-9]{0,3}[a-z]?`, 'gm');
 
                 for(let text of foundRule) {
                     
@@ -131,7 +131,7 @@ function chunkRules(rules) {
         if((size + line.length + 1) > 1900) {
 
             chunks.push(tempArr.join('\n'));
-            console.log(`Joining ${tempArr}`)
+            //console.log(`Joining ${tempArr}`)
             tempArr = [];
 
         }
@@ -146,7 +146,6 @@ function chunkRules(rules) {
 
 }
 
-let rulesText = '';
 fs.readFile('./src/logic/cr/MTGRules.txt', 'utf-8')
     .then(content => {
 

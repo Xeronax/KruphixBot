@@ -16,10 +16,14 @@ const colors = new Map([
 function getColor(parsedCard = null) {
 
     let color;
+    console.log(`parsedCard: ${parsedCard}`);
 
     try {
 
         if(parsedCard == null) return colors.get('NONE');
+
+        if(parsedCard.front) return getColor(parsedCard.front);
+
 
         if(!parsedCard.colors || parsedCard.colors.length == 0){
 

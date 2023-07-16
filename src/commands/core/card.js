@@ -16,7 +16,7 @@ module.exports = {
     // Define slash command
     data: new SlashCommandBuilder()
         .setName('card')
-        .setDescription('Finds a magic the gathering card with the specified name.')
+        .setDescription('Finds a Magic the Gathering card with the specified name or Scryfall syntax.')
         .addStringOption(option =>
             option
                 .setName('query')

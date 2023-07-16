@@ -24,10 +24,10 @@ module.exports = {
 
         await interaction.reply({
 
-            message: helpMessage,
+            content: helpMessage,
             ephemeral: true,
 
-        })
+        });
 
     }
 

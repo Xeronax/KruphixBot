@@ -59,6 +59,7 @@ function formatCardDetails(face) {
         flavor_text : face.flavor_text ?? "",
         power : face.power ?? "",
         toughness : face.toughness ?? "",
+        colors: face.colors ?? null,
         
     }
 
@@ -88,7 +89,6 @@ module.exports = {
                     back : formatCardDetails(face2),
                     dfc: true,
                     image_urls : parsedCard.image_uris,
-                    colors : parsedCard.colors,
                     artist : parsedCard.artist
     
                 }

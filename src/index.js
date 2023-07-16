@@ -48,13 +48,18 @@ client.createState = function(data, messageArg = null, embed = null) {
 
     };
 
-	if(state.message) {
+	let statePackage;
+
+	let replyExists = state.message != null;
+	if(replyExists) {
 
 		let id = state.message.id;
 
 		client.messageStates.set(id, state);
 
-		return { id, state }
+		statePackage = { id, state }
+
+		return statePackage
 
 	}
 
@@ -67,9 +72,9 @@ client.createState = function(data, messageArg = null, embed = null) {
 	}
 
 	client.messageStates.set(tempID, state);
+	statePackage = { tempID, state };
 
-	//this returns a weird object, but it works, will probably change later
-	return { tempID, state };
+	return statePackage;
 
 }
 

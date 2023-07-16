@@ -5,6 +5,7 @@ A script dedicated to handling the creation and configuration of the embed
 const { EmbedBuilder } = require("discord.js");
 const Colors = require('../card/colors.js');
 const { merge } = require('../card/mergeDfc.js');
+const { parse } = require("dotenv");
 
 const noPort = process.env.PORT == ''
 
@@ -43,8 +44,6 @@ function getNextCardName(parsedCard, i = 0) {
     const index = i + 1;
 
     if(index > 4 || !parsedCard.nextCard) { return parsedCard.name ?? parsedCard.front.name }
-    console.log(index);
-
 
     return (parsedCard.name ?? parsedCard.front.name) + ' > ' + getNextCardName(parsedCard.nextCard, index);
 
@@ -56,7 +55,7 @@ function createFooter(parsedCard, flags) {
 
     if(flags.image) {
 
-        footer = `${parsedCard.artist ?? 'Artist Unknown'}`;
+        footer  = parsedCard.artist ? parsedCard.artist : 'Artist Unknown';
         return footer;
 
     }
@@ -114,7 +113,7 @@ async function embedDfc(parsedCard, flags = {}) {
       
     const footer = createFooter(parsedCard, flags);
     const embed = new EmbedBuilder()
-        .setColor(Colors(parsedCard.front))
+        .setColor(Colors(parsedCard))
         .setThumbnail(mergedDfcImage ?? parsedCard.front.image_urls.normal)
         .setTitle(`${parsedCard.front.name} ${parsedCard.front.mana_cost}`)
         .setURL(`${parsedCard.scryfall_url}`)
@@ -170,7 +169,7 @@ async function embedImage(parsedCard, flags = {} ) {
                 );
 
         }
-        color = Colors(parsedCard.front);
+        color = Colors(parsedCard);
 
     } else {
 
@@ -184,7 +183,7 @@ async function embedImage(parsedCard, flags = {} ) {
         .setURL(`${parsedCard.scryfall_url}`)
         .setColor(color)
         .setImage(mergedDfcImage ?? image_url)
-        .setFooter( { text: createFooter(parsedCard, flags) } )
+        .setFooter( { text: createFooter(parsedCard, flags) ?? 'Artist Unknown' } )
     
     return embed;
 
