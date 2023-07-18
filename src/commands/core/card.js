@@ -3,13 +3,9 @@
 */
 // Import required modules and components
 const { SlashCommandBuilder } = require('discord.js')
-const Scryfall = require("../../logic/card/scry.js");
+const Scryfall = require("../../logic/utils/scry.js");
 const { displayCard } = require('../../logic/card/displayCard.js');
 
-// Fetch card information from the Scryfall API
-const fetchCard = async (query) => {
-    return await Scryfall.searchName(query)
-}
 // Exported module
 module.exports = {
 
@@ -27,7 +23,7 @@ module.exports = {
     async execute(interaction) {
 
         const requestedName = interaction.options.getString('query');
-        const cards = await fetchCard(requestedName);
+        const cards = await Scryfall.requestSearch(requestedName);
 
         if(Array.isArray(cards)) {
 

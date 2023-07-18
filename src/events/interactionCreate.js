@@ -17,7 +17,7 @@ module.exports = {
 			return;
 		}
 
-		console.log(`Handling ${interaction.commandName} for ${interaction.user}`)
+		console.log(`Handling ${interaction.commandName} for ${interaction.user.name}`)
 
 		try {
 

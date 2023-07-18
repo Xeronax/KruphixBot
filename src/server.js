@@ -4,7 +4,7 @@
 	allowing support for displaying both sides of a DFC, you can optionally provide a PORT
 	variable in your .env file.
 	This is still very experimental, i'm not a good enough coder to have yet implemented any
-	need security features. This is running on a VM on my system so use with caution.
+	needed security features. This is running on a VM on the cloud so use with caution.
 */
 const express = require('express');
 
@@ -18,7 +18,7 @@ if(port) {
 } else {
 
     console.log('-------------------------------------\n');
-    console.log('No port defined. Kruphix Bot will use default DFC display.');
+    console.log('No port defined. Kruphix Bot will use default display.');
     console.log('\n-------------------------------------');
 
 }
@@ -30,7 +30,7 @@ module.exports = {
         if(!port) return null;
 
         const imagePath = `http://${ip}:${port}/imageDump/${name}`;
-        console.log(`Grabbing imagePath from: ${imagePath}`);
+        //console.log(`Grabbing imagePath from: ${imagePath}`);
 
         return imagePath;
 

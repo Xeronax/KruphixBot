@@ -5,7 +5,6 @@ A script dedicated to handling the creation and configuration of the embed
 const { EmbedBuilder } = require("discord.js");
 const Colors = require('../card/colors.js');
 const { merge } = require('../card/mergeDfc.js');
-const { parse } = require("dotenv");
 
 const noPort = process.env.PORT == ''
 
@@ -18,6 +17,12 @@ module.exports = {
         if(flags.ruling) {
 
             return [ embedRuling(embedTarget, flags) ];
+
+        }
+
+        if(flags.imageCrop) {
+
+            return [ await embedImageCrop(embedTarget, flags) ];
 
         }
 
@@ -43,13 +48,13 @@ function getNextCardName(parsedCard, i = 0) {
 
     const index = i + 1;
 
-    if(index > 4 || !parsedCard.nextCard) { return parsedCard.name ?? parsedCard.front.name }
+    if(index > 4 || !parsedCard.nextCard) { return `${parsedCard.name ?? parsedCard.front.name}...` }
 
     return (parsedCard.name ?? parsedCard.front.name) + ' > ' + getNextCardName(parsedCard.nextCard, index);
 
 }
 
-function createFooter(parsedCard, flags) {
+function createFooter(parsedCard, flags = {}) {
 
     let footer;
 
@@ -68,6 +73,47 @@ function createFooter(parsedCard, flags) {
     return footer; 
 
 }
+
+async function embedImageCrop(parsedCard, flags = {} ) {
+
+    let image_url, color, mergedDfcImage;
+    if(parsedCard.dfc) {
+
+        image_url = parsedCard.front.image_urls.art_crop;
+        if(!noPort) {
+
+            mergedDfcImage = await merge(
+                { imageUrl: parsedCard.front.image_urls.art_crop, name: parsedCard.front.name }, 
+                { imageUrl: parsedCard.back.image_urls.art_crop, name: parsedCard.back.name }
+                );
+
+        }
+        color = Colors(parsedCard);
+
+    } else {
+
+        image_url = parsedCard.image_urls.art_crop;
+        color = Colors(parsedCard);
+
+    }
+
+    
+    console.log(`------\nembed() card state\n------\n${Object.keys(parsedCard.image_urls)}`);
+    console.log(`Image_url: ${image_url}`);
+
+    const embed = new EmbedBuilder()
+        .setTitle(`${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)} ${parsedCard.mana_cost ?? parsedCard.front.mana_cost}`)
+        .setURL(`${parsedCard.scryfall_url}`)
+        .setColor(color)
+        .setImage(mergedDfcImage ?? image_url)
+        .setDescription(`🖌️ ${parsedCard.artist ? parsedCard.artist : 'Artist Unknown'}`)
+
+    //console.log(embed)
+    
+    return embed;
+
+}
+
 
 async function embedDfc(parsedCard, flags = {}) {
 

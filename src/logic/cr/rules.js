@@ -4,14 +4,14 @@
 
 const fs = require('fs').promises;
 const { createEmbed } = require('../utils/embed');
-const { ButtonBuilder, ButtonStyle, ActionRowBuilder, MessageActionRow } = require('discord.js');
+const { buildActionRow } = require('../utils/rowBuilder')
 let rulesText = '';
 
 module.exports = {
 
     displayRule: async function(interaction, client) {
 
-        if(!client.messageStates.has(interaction?.message?.id)) {
+        if(!client.stateHandler.has(interaction?.message?.id)) {
 
             const rule = interaction.options.getString('rule');
             const reg = new RegExp(`^${rule}(\\.?[a-z]?)(\\. ?)?.*$`, `gm`);
@@ -39,12 +39,8 @@ module.exports = {
                     
                 }
                 
-                let embed = await createEmbed(ruleChunks?.[0] ?? finalText, { ruling: true });
-                const statePackage = client.createState(ruleChunks ?? finalText, null, embed);
-                //console.log(interaction.user);
-                statePackage.state.author = interaction.user;
-                //console.log(statePackage.state.author);
-                const row = buildActionRow(statePackage.state)
+                let embed = await createEmbed(ruleChunks?.[0] ?? finalText, { ruling: true });;
+                const row = buildActionRow(0, { ruling: true })
 
                 interaction.reply({
 
@@ -54,10 +50,10 @@ module.exports = {
 
                 })
 
-                statePackage.state.message = await interaction.fetchReply();
+                const message = await interaction.fetchReply();
 
-                client.replaceState(statePackage.tempID);
-                
+                const state = client.stateHandler.createState(ruleChunks ?? finalText, message);;
+                state.author = interaction.user;
                 
 
             } catch(error) {
@@ -83,33 +79,6 @@ module.exports = {
 
     }     
 
-}
-
-const buildActionRow = (state) => {
-    
-    let row = new ActionRowBuilder();
-
-    row.addComponents(
-        new ButtonBuilder()
-            .setCustomId('scrollDown')
-            .setEmoji('⬇️')
-            .setStyle(ButtonStyle.Secondary) 
-    );
-    row.addComponents(
-        new ButtonBuilder()
-            .setCustomId('scrollUp')
-            .setEmoji('⬆️')
-            .setStyle(ButtonStyle.Secondary)
-    );
-    row.addComponents(
-        new ButtonBuilder()
-            .setCustomId('close')
-            .setEmoji('❌')
-            .setStyle(ButtonStyle.Secondary)
-    )
-
-    return row; 
-    
 }
 
 //A function to split up a large string into chunks.

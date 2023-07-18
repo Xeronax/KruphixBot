@@ -24,69 +24,7 @@ const client = new Client({
     ]
 });
 
-
-
-/*
-	#State Handling#
-*/
-
-// Map to store various information about the bot's replies
-client.messageStates = new Map();
-
-// Create a new state and add it to the messageStates map
-client.createState = function(data, messageArg = null, embed = null) {
-
-    const state = {
-
-        data: data,
-        currentIndex: 0,
-        message: messageArg,
-		embed: embed,
-		image: false,
-		hits: data?.length ?? 0,
-		author: null
-
-    };
-
-	let statePackage;
-
-	let replyExists = state.message != null;
-	if(replyExists) {
-
-		let id = state.message.id;
-
-		client.messageStates.set(id, state);
-
-		statePackage = { id, state }
-
-		return statePackage
-
-	}
-
-	let tempID = 0;
-    while(tempID == 0 || client.messageStates.has(tempID))
-	{
-
-		tempID = Math.random().toString();
-
-	}
-
-	client.messageStates.set(tempID, state);
-	statePackage = { tempID, state };
-
-	return statePackage;
-
-}
-
-client.replaceState = function(originalMessageID) {
-
-	let tempState = client.messageStates.get(originalMessageID);
-	client.messageStates.set(tempState.message.id, tempState);
-	client.messageStates.delete(originalMessageID);
-
-	return tempState
-
-}
+client.stateHandler = require('./logic/stateHandling');
 
 /*
 	#Commands & Events# (taken from Discord.js guide)

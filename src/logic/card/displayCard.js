@@ -1,108 +1,50 @@
 /*
     displayCard.js
-    This script is a wrapper function for format.js and cardEmbed.js to make code a lil cleaner
+    This script wraps each function together to display the card to the user
 */
-const { ButtonBuilder, ButtonStyle, ActionRowBuilder, MessageActionRow } = require('discord.js')
 const { formatCard } = require('../utils/format.js');
 const { createEmbed } = require('../utils/embed.js');
-
-// Build action row for card navigation
-const buildActionRow = (len, flags = {}) => {
-    
-    let row = new ActionRowBuilder()
-
-    if(len > 1) {
-        row
-        .addComponents(
-            new ButtonBuilder()
-                .setCustomId('prevCard')
-                .setLabel('<-')
-                .setStyle(ButtonStyle.Secondary),
-            new ButtonBuilder()
-                .setCustomId('nextCard')
-                .setLabel('->')
-                .setStyle(ButtonStyle.Secondary)
-        )
-
-    }
-
-    let imageButton = new ButtonBuilder()
-        .setCustomId('fullImage')
-        .setStyle(ButtonStyle.Secondary)
-
-    if(!flags.image){
-
-        imageButton.setEmoji('🔍');
-
-    } else {
-
-        imageButton.setEmoji('📄');
-
-    }
-
-    row.addComponents(imageButton)
-
-    row.addComponents(
-        new ButtonBuilder()
-            .setCustomId('close')
-            .setEmoji('❌')
-            .setStyle(ButtonStyle.Secondary)
-    )
- 
-
-    return row; 
-    
-}
+const { buildActionRow } = require('../utils/rowBuilder.js')
 
 module.exports = {
-
-    
     //A function to format and embed a card, then display it to the user
     displayCard: async function(interaction, { cardArray = null, flags = {} }, client) {
 
-        //If the cardArray is null, then we are editing a message
-        if(Array.isArray(cardArray)) {
+        let embed, message, row, state;
+
+        let editingMessage = !Array.isArray(cardArray)
+        if(!editingMessage) {
 
             const formattedCards = formatCard(cardArray);
-            const row = buildActionRow(cardArray.length);
 
-            const statePackage = client.createState(formattedCards);
-            statePackage.state.hits = cardArray.length;
-            statePackage.state.embed = await createEmbed(formattedCards[statePackage.state.currentIndex], { hits: statePackage.state.hits });
+            row = buildActionRow(cardArray.length, flags);
+            flags.hits = cardArray.length;
+            embed = await createEmbed(formattedCards[0], flags);
+
+            console.log(embed);
 
             await interaction.reply({
 
-                embeds: statePackage.state.embed,
+                embeds: embed,
                 components: [row],
                 fetchReply: true
                 
             });
     
-            statePackage.state.message = await interaction.fetchReply();
+            message = await interaction.fetchReply();
 
-            let newState = client.replaceState(statePackage.tempID);
-            newState.author = interaction?.user ?? null;
+            state = client.stateHandler.createState(formattedCards, message);
+            state.author = interaction?.user ?? null;
 
         } else {
 
-            const state = client.messageStates.get(interaction.message.id);
-            let row;
-            
-            if(state.image) {
-
-                state.embed = await createEmbed(state.data[state.currentIndex], { hits: state.hits, image: true });
-                row = buildActionRow(state.data.length, { image: true });
-
-            } else {
-
-                state.embed ??= await createEmbed(state.data[state.currentIndex], { hits: state.hits });
-                row = buildActionRow(state.data.length);
-
-            }
+            state = client.stateHandler.get(interaction.message.id);
+            embed = await createEmbed(state.data[state.currentIndex], flags);
+            row = buildActionRow(state.hits, flags);
 
             await interaction.editReply({
 
-                embeds: state.embed,
+                embeds: embed,
                 components: [row],
 
             });

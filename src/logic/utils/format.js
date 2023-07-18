@@ -92,7 +92,7 @@ module.exports = {
                     artist : parsedCard.artist
     
                 }
-    
+
             } else {
     
                 formattedCard = formatCardDetails(parsedCard);
@@ -100,6 +100,8 @@ module.exports = {
                 formattedCard.artist = parsedCard.artist;
     
             }
+
+            console.log(`------\nformat() card state\n------\n${Object.keys(formattedCard.image_urls)}`);
 
             formattedCard.set = parsedCard.set.toUpperCase() ?? "";
             formattedCard.rarity = toTitleCase(parsedCard.rarity) ?? formattedCard.rarity;

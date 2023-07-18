@@ -11,12 +11,12 @@ async function handleButtonInteraction(interaction) {
     console.log(`Got interaction from: ${interaction.message.id}`)
 
     // Confirm the state exists for the interaction
-    if(!client.messageStates.has(interaction.message.id)) { return }
+    if(!client.stateHandler.has(interaction.message.id)) { return }
 
     console.log(`Handling button interaction for message id: ${interaction.message.id}`);
 
     // Get the state for the current interaction
-    const state = client.messageStates.get(interaction.message.id);
+    const state = client.stateHandler.get(interaction.message.id);
 
     //console.log('-----------Interaction User----------')
     //console.log(interaction.user);
@@ -44,39 +44,43 @@ async function handleButtonInteraction(interaction) {
             case 'nextCard':
                 // Update currentIndex to show the next card
                 state.currentIndex = (state.currentIndex + 1) % data.length;
-                state.embed = null;
                 displayCard(interaction, {}, client);
                 break;
             
             case 'prevCard':
                 // Update currentIndex to show the previous card
                 state.currentIndex = (state.currentIndex - 1 + data.length) % data.length //Add length to handle negative numbers
-                state.embed = null;
                 displayCard(interaction, {}, client);
                 break;
             
             case 'fullImage':
                 //Show full image for a card
-                state.embed = null;
-                state.image = !state.image;
-                displayCard(interaction, {}, client);
+                displayCard(interaction, { flags: { image: true } }, client);
                 break;
 
             case 'scrollDown': 
                 //Scroll down a ruling
                 if(state.currentIndex < state.data.length - 1) { state.currentIndex++ }
-                displayRule(interaction, client);
+                displayRule(interaction, {}, client);
                 break;
             
             case 'scrollUp':
                 //Scroll up a ruling
                 if(state.currentIndex > 0) { state.currentIndex-- }
-                displayRule(interaction, client);
+                displayRule(interaction, {}, client);
+                break;
+
+            case 'text':
+                displayCard(interaction, {}, client);
                 break;
             
+            case 'imageCrop':
+                displayCard(interaction, { flags: { imageCrop: true }}, client);
+                break;
+
             case 'close':
                 //Delete the message
-                client.messageStates.delete(interaction.message.id);
+                client.stateHandler.deleteState(interaction.message.id);
                 interaction.message.delete();
                 break;
 

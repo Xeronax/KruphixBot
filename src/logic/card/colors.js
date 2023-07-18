@@ -19,7 +19,6 @@ module.exports = getColor
 function getColor(parsedCard = null) {
 
     let color;
-    console.log(`parsedCard: ${parsedCard}`);
 
     try {
 

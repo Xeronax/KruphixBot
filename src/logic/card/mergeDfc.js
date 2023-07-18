@@ -89,7 +89,7 @@ async function mergeFaces( frontPath, backPath ) {
         })
         fs.unlink(backPath, err => {
 
-            console.log(`Deleted${frontPath}`)
+            console.log(`Deleted${backPath}`)
             if(err) throw err;
 
         })
