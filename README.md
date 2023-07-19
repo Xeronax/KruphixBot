@@ -18,6 +18,10 @@ KruphixBot is a Discord bot that fetches and displays information about Magic: T
 - `/cr <rule>`: Fetches a rule by number. (Ex. '704', '104.1', '601.3a').
 - `/art`: Displays a full cropped image of a card's art and the artist.
 
+## Getting Started
+
+You can 
+
 ## Feedback
 
 If you encounter any issues or have any suggestions for improvements, please open an issue on this GitHub repository or message xeronax on Discord.
