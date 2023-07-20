@@ -19,19 +19,11 @@ module.exports = {
         
         row.addComponents(exit());
 
-        console.log(`ROW: ${Object.keys(row.components)}`);
-        for(let component of row.components) {
-
-            console.log(component);
-
-        }
-
         return row; 
         
     }
         
 }
-
 
 const text = () => {
 
@@ -126,4 +118,15 @@ const scrollDown = () => {
             .setStyle(ButtonStyle.Secondary) 
 
     return button;
+}
+
+function logRow(row) {
+
+    console.log(`ROW: ${Object.keys(row.components)}`);
+    for(let component of row.components) {
+
+        console.log(component);
+
+    }
+
 }

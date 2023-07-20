@@ -1,5 +1,5 @@
 /*
-	#State Handling#
+	#stateHandling.js#
 */
 const messageStates = new Map();
 
@@ -56,7 +56,7 @@ module.exports = {
 
         if(!messageStates.has(messageID)) return;
     
-        console.log(`${messageID} timed out.`);
+        //console.log(`${messageID} was timed out or closed.`);
         messageStates.delete(messageID);
     
     }

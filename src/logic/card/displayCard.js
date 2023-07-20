@@ -21,8 +21,6 @@ module.exports = {
             flags.hits = cardArray.length;
             embed = await createEmbed(formattedCards[0], flags);
 
-            console.log(embed);
-
             await interaction.reply({
 
                 embeds: embed,
@@ -39,6 +37,7 @@ module.exports = {
         } else {
 
             state = client.stateHandler.get(interaction.message.id);
+            flags.hits = state.data.length;
             embed = await createEmbed(state.data[state.currentIndex], flags);
             row = buildActionRow(state.hits, flags);
 

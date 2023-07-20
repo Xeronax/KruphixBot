@@ -101,8 +101,6 @@ module.exports = {
     
             }
 
-            console.log(`------\nformat() card state\n------\n${Object.keys(formattedCard.image_urls)}`);
-
             formattedCard.set = parsedCard.set.toUpperCase() ?? "";
             formattedCard.rarity = toTitleCase(parsedCard.rarity) ?? formattedCard.rarity;
             formattedCard.scryfall_url = parsedCard.scryfall_uri ?? formattedCard.scryfall_url;

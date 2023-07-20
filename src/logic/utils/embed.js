@@ -12,8 +12,6 @@ module.exports = {
 
     createEmbed: async function(embedTarget, flags = {}) {
 
-        //console.log(embedTarget)
-
         if(flags.ruling) {
 
             return [ embedRuling(embedTarget, flags) ];
@@ -97,18 +95,12 @@ async function embedImageCrop(parsedCard, flags = {} ) {
 
     }
 
-    
-    console.log(`------\nembed() card state\n------\n${Object.keys(parsedCard.image_urls)}`);
-    console.log(`Image_url: ${image_url}`);
-
     const embed = new EmbedBuilder()
         .setTitle(`${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)} ${parsedCard.mana_cost ?? parsedCard.front.mana_cost}`)
         .setURL(`${parsedCard.scryfall_url}`)
         .setColor(color)
         .setImage(mergedDfcImage ?? image_url)
         .setDescription(`🖌️ ${parsedCard.artist ? parsedCard.artist : 'Artist Unknown'}`)
-
-    //console.log(embed)
     
     return embed;
 
@@ -154,8 +146,6 @@ async function embedDfc(parsedCard, flags = {}) {
             );
 
     }
-
-    //console.log(`Got DFC URL: ${mergedDfcImage}`);
       
     const footer = createFooter(parsedCard, flags);
     const embed = new EmbedBuilder()

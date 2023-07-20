@@ -8,37 +8,21 @@ async function handleButtonInteraction(interaction) {
 
     const client = interaction.client;
 
-    console.log(`Got interaction from: ${interaction.message.id}`)
-
-    // Confirm the state exists for the interaction
     if(!client.stateHandler.has(interaction.message.id)) { return }
 
-    console.log(`Handling button interaction for message id: ${interaction.message.id}`);
-
-    // Get the state for the current interaction
     const state = client.stateHandler.get(interaction.message.id);
 
-    //console.log('-----------Interaction User----------')
-    //console.log(interaction.user);
-    // console.log('-----------State Author----------------')
-    // console.log(state.author)
+    if((interaction.user.id != state.author.id) || (interaction.user.global_name == 'xeronax')) { return }
 
-    //Confirm that the user creating the interaction is the owner of the message
-    if(interaction.user.id != state.author.id) { return }
-
-    console.log("--------\nInteraction passed auth check\n---------")
+    console.log(`Interaction [${interaction.customId}] from ${interaction.user.username} Passed Auth Check`)
 
     // Defer the update so interaction does not fail due to timeout
     await interaction.deferUpdate();
-
 
     try {
 
         const data = state.data;
 
-        console.log(interaction.customId)
-
-        // Handle next and previous card interactions
         switch(interaction.customId) {
 
             case 'nextCard':

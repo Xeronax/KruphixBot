@@ -6,5 +6,5 @@ Below, you will find the chants, the invocations, that you must utter to call up
 `/card` - To call upon my knowledge of the myriad entities in the multiverse, use this command. I will reveal to you details about any Magic the Gathering card, known by name or Scryfall syntax. For example, ``pow > 5``, ``cmc = 2``, ``t:creature``.
 `/cr` - My understanding encompasses not only the beings of the multiverse but also the laws that bind it. Use this command to gain insight into a Magic the Gathering rule, by its number or by its keyword. For instance, ``100.6`` or ``deathtouch``
 `/help` - Should you lose your way in this journey of understanding, this command will serve as your beacon. Invoke it to receive a comprehensive list of the services I can offer you, Kruphix Bot's commands.
-
-Remember, mortal, the power of wisdom is a formidable one. Use it wisely, and let our journey in the multiverse begin!
+`/art` - The multiverse is filled with astounding beauty and breathtaking sights, all captured in the artistry of the cards themselves. Use this command to gaze upon the full cropped image of a card's art and pay tribute to its creator, the artist.
+/feedback` - Through this command, you may share your thoughts and experiences directly with me. Whether you have suggestions, critiques, or simply wish to express your appreciation or curiosity, don't hesitate.
