@@ -20,11 +20,11 @@ KruphixBot is a Discord bot that fetches and displays information about Magic: T
 
 ## Getting Started
 
-You can 
+You can add Kruphix Bot to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1099066463236673626&permissions=277025778752&scope=applications.commands%20bot)
 
 ## Feedback
 
-If you encounter any issues or have any suggestions for improvements, please open an issue on this GitHub repository or message xeronax on Discord.
+If you encounter any issues or have any suggestions for improvements, please open an issue on this GitHub repository, do `/feedback`, or message xeronax on Discord.
 
 ## Planned Features
 
