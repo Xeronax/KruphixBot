@@ -7,13 +7,26 @@ const { createEmbed } = require('../utils/embed.js');
 const { buildActionRow } = require('../utils/rowBuilder.js')
 
 module.exports = {
-    //A function to format and embed a card, then display it to the user
     displayCard: async function(interaction, { cardArray = null, flags = {} }, client) {
 
         let embed, message, row, state;
 
-        let editingMessage = !Array.isArray(cardArray)
-        if(!editingMessage) {
+        if(flags.fail) {
+
+            embed = await createEmbed(cardArray, flags);
+            row = buildActionRow(0, flags);
+            await interaction.reply({
+
+                embeds: embed,
+                ephemeral: true
+
+            });
+
+            return;
+
+        }
+
+        if(!flags.edit) {
 
             const formattedCards = formatCard(cardArray);
 
@@ -33,22 +46,22 @@ module.exports = {
 
             state = client.stateHandler.createState(formattedCards, message);
             state.author = interaction?.user ?? null;
-
-        } else {
-
-            state = client.stateHandler.get(interaction.message.id);
-            flags.hits = state.data.length;
-            embed = await createEmbed(state.data[state.currentIndex], flags);
-            row = buildActionRow(state.hits, flags);
-
-            await interaction.editReply({
-
-                embeds: embed,
-                components: [row],
-
-            });
+            
+            return;
 
         }
+
+        state = client.stateHandler.get(interaction.message.id);
+        flags.hits = state.data.length;
+        embed = await createEmbed(state.data[state.currentIndex], flags);
+        row = buildActionRow(state.hits, flags);
+
+        await interaction.editReply({
+
+            embeds: embed,
+            components: [row],
+
+        });
 
     }
 

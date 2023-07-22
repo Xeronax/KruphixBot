@@ -8,32 +8,27 @@ const { merge } = require('../card/mergeDfc.js');
 
 const noPort = process.env.PORT == ''
 
+const flagToEmbedTypeMap = {
+
+    ruling: embedRuling,
+    imageCrop: async (target, flags) => await embedImageCrop(target, flags),
+    image: async (target, flags) => await embedImage(target, flags),
+    dfc: async (target, flags) => await embedDfc(target, flags),
+    fail: embedFail,
+
+}
+
 module.exports = {
 
     createEmbed: async function(embedTarget, flags = {}) {
 
-        if(flags.ruling) {
+        for(let flag in flags) {
 
-            return [ embedRuling(embedTarget, flags) ];
+            if(flags[flag] && flagToEmbedTypeMap[flag]) {
 
-        }
+                return [ await flagToEmbedTypeMap[flag](embedTarget, flags) ];
 
-        if(flags.imageCrop) {
-
-            return [ await embedImageCrop(embedTarget, flags) ];
-
-        }
-
-        if(flags.image) {
-
-            return [ await embedImage(embedTarget, flags) ];
-
-        }
-
-        if(embedTarget.dfc) {
-
-            return [ await embedDfc(embedTarget, flags) ];
-
+            }
         }
 
          return [ embedNormal(embedTarget, flags) ];
@@ -237,5 +232,23 @@ function embedRuling(ruling, flags = {}) {
 
     return embed;
 
+}
+
+function embedFail(embedTarget, flags = {}) {
+
+    let details;
+    if(embedTarget) {
+
+        details = embedTarget.data.details;
+
+    }
+    const embed = new EmbedBuilder()
+        .setTitle('Card Not Found')
+        .setURL('https://scryfall.com/docs/reference')
+        .setColor(Colors())
+        .setDescription(`${details ?? 'An error occured while making your request to Scryfall.'}`)
+        .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgamepedia.cursecdn.com%2Fmtgsalvation_gamepedia%2Fa%2Fa2%2FScryfall.jpg')
+    
+    return embed;
 }
 

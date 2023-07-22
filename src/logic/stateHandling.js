@@ -21,8 +21,8 @@ module.exports = {
 
         setTimeout(() => {
 
-            console.log(`Deleting ${state.message.id}`)
-            this.deleteState(state.message.id);
+            console.log(`Attemping to time out ${state.message.id}`)
+            if(this.has(state.message.id)) this.deleteState(state.message.id);
 
         }, 600000);
         
@@ -36,7 +36,7 @@ module.exports = {
         messageStates.set(tempState.message.id, tempState);
         messageStates.delete(originalMessageID);
     
-        return tempState
+        return tempState;
     
     },
 

@@ -5,19 +5,23 @@ module.exports = {
     // Build action row for card navigation
     buildActionRow: function(len = 0, flags = {}) {
         
+        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.fail)  flags.default = true;
+
         let row = new ActionRowBuilder()
 
         if(len > 1) { row.addComponents(prevCard(), nextCard()) };
 
-        if(flags.image) { row.addComponents(text(), imageCrop()) };
+        for(let flag in flags) {
 
-        if(flags.imageCrop) { row.addComponents(text(), fullImage()) };
+            if(!flags[flag] || !buttonConfigMap[flag]) continue;
 
-        if(flags.ruling) { row.addComponents(scrollUp(), scrollDown()) };
+            for(let func of buttonConfigMap[flag]) {
 
-        if(!flags.image && !flags.imageCrop && !flags.ruling) { row.addComponents(fullImage(), imageCrop()) };
-        
-        row.addComponents(exit());
+                row.addComponents(func());
+
+            }
+            
+        }
 
         return row; 
         
@@ -109,7 +113,7 @@ const scrollUp = () => {
 
 }
 
-const scrollDown = () => {
+var scrollDown = () => {
 
     let button =
         new ButtonBuilder()
@@ -122,11 +126,21 @@ const scrollDown = () => {
 
 function logRow(row) {
 
-    console.log(`ROW: ${Object.keys(row.components)}`);
+    console.log(`------------------------\nROW: ${Object.keys(row.components)}\n-------------------------------`);
     for(let component of row.components) {
 
         console.log(component);
 
     }
+
+}
+
+const buttonConfigMap = {
+
+    image:  [text, imageCrop, exit], 
+    imageCrop: [text, fullImage, exit],
+    ruling: [scrollUp, scrollDown, exit],
+    default: [fullImage, imageCrop, exit],
+    fail: [exit],
 
 }

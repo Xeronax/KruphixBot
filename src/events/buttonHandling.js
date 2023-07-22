@@ -22,48 +22,50 @@ async function handleButtonInteraction(interaction) {
     try {
 
         const data = state.data;
+        const flags = { edit: true }
 
         switch(interaction.customId) {
 
             case 'nextCard':
                 // Update currentIndex to show the next card
                 state.currentIndex = (state.currentIndex + 1) % data.length;
-                displayCard(interaction, {}, client);
+                displayCard(interaction, { flags: flags }, client);
                 break;
             
             case 'prevCard':
                 // Update currentIndex to show the previous card
                 state.currentIndex = (state.currentIndex - 1 + data.length) % data.length //Add length to handle negative numbers
-                displayCard(interaction, {}, client);
+                displayCard(interaction, { flags: flags }, client);
                 break;
             
             case 'fullImage':
                 //Show full image for a card
-                displayCard(interaction, { flags: { image: true } }, client);
+                flags.image = true;
+                displayCard(interaction, { flags: flags }, client);
                 break;
 
             case 'scrollDown': 
                 //Scroll down a ruling
                 if(state.currentIndex < state.data.length - 1) { state.currentIndex++ }
-                displayRule(interaction, {}, client);
+                displayRule(interaction, { flags: flags }, client);
                 break;
             
             case 'scrollUp':
                 //Scroll up a ruling
                 if(state.currentIndex > 0) { state.currentIndex-- }
-                displayRule(interaction, {}, client);
+                displayRule(interaction, { flags: flags }, client);
                 break;
 
             case 'text':
-                displayCard(interaction, {}, client);
+                displayCard(interaction, { flags: flags }, client);
                 break;
             
             case 'imageCrop':
-                displayCard(interaction, { flags: { imageCrop: true }}, client);
+                flags.imageCrop = true;
+                displayCard(interaction, { flags: flags }, client);
                 break;
 
             case 'close':
-                //Delete the message
                 client.stateHandler.deleteState(interaction.message.id);
                 interaction.message.delete();
                 break;

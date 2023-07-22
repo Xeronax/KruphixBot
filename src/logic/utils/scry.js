@@ -29,17 +29,19 @@ module.exports = {
 
 setInterval( async () => {
 
+    if(queue.length < 1) return;
     let request = queue.shift();
-    if(!request) return;
 
     try {
 
         const response = await axios.get(`${scryfallApi}/cards/search`, {
+
             params: {
 
               q: request.query,
 
             },
+
         });
         
         if(response.data.data) {
@@ -48,13 +50,14 @@ setInterval( async () => {
 
         } else {
 
-            request.reject(new Error("Scryfall found no results matching that query."));
+            request.reject(response.data);
 
         }
 
     } catch(error) {
 
-        console.error('An error occured while fetching the card: ', error);
+        //console.error('An error occured while fetching the card: ', error);
+        request.reject(error);
         
     };
 

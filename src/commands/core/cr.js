@@ -23,6 +23,6 @@ module.exports = {
 
             await displayRule(interaction, interaction.client);
             
-    }
+        }
 
 }
