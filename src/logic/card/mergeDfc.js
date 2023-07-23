@@ -30,13 +30,13 @@ async function mergeFaces( frontPath, backPath ) {
     return mergeImages([ 
 
         { src: frontPath, x: 0, y: 0 },
-        { src: backPath, x: dimensions.front.length, y: 0 }
+        { src: backPath, x: dimensions.front.width, y: 0 }
 
     ], {
 
         Canvas: Canvas,
         Image: Image,
-        width: (dimensions.front.length + dimensions.back.length),
+        width: (dimensions.front.width + dimensions.back.width),
         height: (Math.max(dimensions.front.height, dimensions.back.height))
 
     })
@@ -48,13 +48,11 @@ async function mergeFaces( frontPath, backPath ) {
 
         fs.unlink(frontPath, err => {
 
-            console.log(`Deleted${frontPath}`)
             if(err) throw err;
 
         })
         fs.unlink(backPath, err => {
 
-            console.log(`Deleted${backPath}`)
             if(err) throw err;
 
         })
@@ -72,7 +70,7 @@ async function mergeFaces( frontPath, backPath ) {
                     
                     console.log(`Merged image saved @ ${outputFilePath}`);
 
-                    setTimeout(function(outputFilePath) {
+                    setTimeout(function() {
 
                         try {
 
@@ -88,7 +86,7 @@ async function mergeFaces( frontPath, backPath ) {
 
                         }
 
-                    }, 600000);
+                    }, 10000);
                     
                     resolve(outputFilePath.replace(/.\/src\/imageDump\//, ''));
     
@@ -127,8 +125,6 @@ async function downloadImage(url, cardName) {
         response.data.pipe(fs.createWriteStream(filePath))
         .on('finish', () => {
 
-            console.log("Image downloaded successfully.");
-
             resolve(filePath);
 
         })
@@ -150,19 +146,16 @@ async function getDimensions(frontImagePath, backImagePath) {
     const backMetaData = await sharp(backImagePath).metadata();
     const front = {
 
-        length: frontMetaData.width,
+        width: frontMetaData.width,
         height:  frontMetaData.height
 
     }
-    console.log(front);
-
     const back = {
 
-        length: backMetaData.width,
+        width: backMetaData.width,
         height: backMetaData.height,
 
     }
-    console.log(back);
     
     return { front, back };
     
