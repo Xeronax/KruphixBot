@@ -265,6 +265,8 @@ async function embedPrice(parsedCard, flags = {}) {
 
     }
 
+    return embed;
+
 }
 
 function embedFail(embedTarget, flags = {}) {
