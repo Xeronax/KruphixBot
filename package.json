@@ -15,7 +15,9 @@
     "discord.js": "^14.10.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "install": "^0.13.0",
     "merge-images": "^2.0.0",
+    "npm": "^9.8.1",
     "sharp": "^0.32.4"
   }
 }

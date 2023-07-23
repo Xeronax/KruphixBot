@@ -77,10 +77,7 @@ async function embedImageCrop(parsedCard, flags = {} ) {
         image_url = parsedCard.front.image_urls.art_crop;
         if(!noPort) {
 
-            mergedDfcImage = await merge(
-                { imageUrl: parsedCard.front.image_urls.art_crop, name: parsedCard.front.name }, 
-                { imageUrl: parsedCard.back.image_urls.art_crop, name: parsedCard.back.name }
-                );
+            mergedDfcImage = await merge(parsedCard.front.image_urls.normal, parsedCard.back.image_urls.normal);
 
         }
         color = Colors(parsedCard);
@@ -137,10 +134,7 @@ async function embedDfc(parsedCard, flags = {}) {
 
     if(!noPort) {
 
-        mergedDfcImage = await merge(
-            { imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
-            { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name }
-            );
+        mergedDfcImage = await merge(parsedCard.front.image_urls.normal, parsedCard.back.image_urls.normal);
 
     }
       
@@ -196,10 +190,7 @@ async function embedImage(parsedCard, flags = {} ) {
         image_url = parsedCard.front.image_urls.normal;
         if(!noPort) {
 
-            mergedDfcImage = await merge(
-                { imageUrl: parsedCard.front.image_urls.normal, name: parsedCard.front.name }, 
-                { imageUrl: parsedCard.back.image_urls.normal, name: parsedCard.back.name }
-                );
+            mergedDfcImage = await merge(parsedCard.front.image_urls.normal, parsedCard.back.image_urls.normal);
 
         }
         color = Colors(parsedCard);
@@ -233,6 +224,45 @@ function embedRuling(ruling, flags = {}) {
         .setThumbnail('https://static1.gamerantimages.com/wordpress/wp-content/uploads/2020/02/magic-the-gathering-logo.jpg')
 
     return embed;
+
+}
+
+async function embedPrice(parsedCard, flags = {}) {
+
+    let image_url, color;
+    if(parsedCard.dfc) {
+
+        image_url = parsedCard.front.image_urls.normal;
+
+        if(!noPort) {
+
+            image_url = await merge(parsedCard.front.image_urls.normal, parsedCard.back.image_urls.normal);
+
+        }
+
+        color = Colors(parsedCard);
+
+    } else {
+
+        image_url = parsedCard.image_urls.normal;
+        color = Colors(parsedCard);
+
+    }
+
+    let footer = createFooter(parsedCard, flags);
+
+    const embed = new EmbedBuilder()
+        .setTitle(`${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)}`)
+        .setURL(`${parsedCard.scryfall_url}`)
+        .setColor(color)
+        .setThumbnail(image_url)
+        .setFooter(footer)
+
+    for(let price in parsedCard.prices) {
+
+        if(parsedCard.prices[price]) embed.addFields({ name: price, value: parsedCard.prices[price], inline: true });
+
+    }
 
 }
 

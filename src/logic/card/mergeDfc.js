@@ -11,10 +11,10 @@ const sharp = require('sharp');
 
 module.exports = {
 
-    merge: async function(front, back) {
+    merge: async function(frontImageUrl, backImageUrl) {
 
-        const frontPath = await downloadImage(front.imageUrl, front.name);
-        const backPath = await downloadImage(back.imageUrl, back.name);
+        const frontPath = await downloadImage(frontImageUrl);
+        const backPath = await downloadImage(backImageUrl);
         const mergedImageFilePath = await mergeFaces(frontPath, backPath);
 
         return getImage(mergedImageFilePath);
@@ -105,9 +105,9 @@ async function mergeFaces( frontPath, backPath ) {
     })
 }
 
-async function downloadImage(url, cardName) {
+async function downloadImage(url) {
 
-    const filePath = `./src/imageDump/${cardName.replace(/ /g, '_')}.png`;
+    const filePath = `./src/imageDump/${Math.random().toString().replace(/\./, '')}.png`;
 
     console.log(url)
     const response = await axios({
