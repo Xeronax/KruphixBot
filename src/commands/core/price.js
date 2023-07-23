@@ -7,7 +7,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('price')
         .setDescription('Find various prices for cards.')
-        .addUserOption(option => 
+        .addStringOption(option => 
             option
                 .setName('query')
                 .setDescription('The card you want the price of')
