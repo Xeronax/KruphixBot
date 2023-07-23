@@ -1,5 +1,7 @@
 /*
     mergeDfc.js — A script to merge the front and back faces of a double-faced card into a single image
+
+    .\/src\/imageDump\/${frontPath.replace(/.\/src\/imageDump\//, '').replace(/\.png/, '')}-${backPath.replace(/.\/src\/imageDump\//, '')}
 */
 const mergeImages = require('merge-images');
 const axios = require('axios');
@@ -45,8 +47,7 @@ async function mergeFaces( frontPath, backPath ) {
 
         const base64Data = b64.replace(/^data:image\/png;base64,/, '');
         const bufferData = Buffer.from(base64Data, 'base64');
-
-        const outputFilePath = `.\/src\/imageDump\/${frontPath.replace(/.\/src\/imageDump\//, '').replace(/\.png/, '')}-${backPath.replace(/.\/src\/imageDump\//, '')}_${(Math.random() * 100).toString()}`;
+        const outputFilePath = `${(Math.random() * 100).toString()}.png`;
 
         fs.unlink(frontPath, err => {
 
