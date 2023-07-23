@@ -32,6 +32,8 @@ module.exports = {
         }
         row.addComponents(exit());
 
+        logRow(row);
+
         return row; 
         
     }
