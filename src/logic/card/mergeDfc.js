@@ -31,7 +31,7 @@ async function mergeFaces( frontPath, backPath ) {
     return mergeImages([ 
 
         { src: frontPath, x: 0, y: 0 },
-        { src: backPath, x: dimensions.front.length + 200, y: 0 }
+        { src: backPath, x: dimensions.front.length, y: 0 }
 
     ], {
 
@@ -46,7 +46,7 @@ async function mergeFaces( frontPath, backPath ) {
         const base64Data = b64.replace(/^data:image\/png;base64,/, '');
         const bufferData = Buffer.from(base64Data, 'base64');
 
-        const outputFilePath = `.\/src\/imageDump\/${frontPath.replace(/.\/src\/imageDump\//, '').replace(/\.png/, '')}-${backPath.replace(/.\/src\/imageDump\//, '')}`;
+        const outputFilePath = `.\/src\/imageDump\/${frontPath.replace(/.\/src\/imageDump\//, '').replace(/\.png/, '')}-${backPath.replace(/.\/src\/imageDump\//, '')}_${(Math.random() * 100).toString()}`;
 
         fs.unlink(frontPath, err => {
 
@@ -72,7 +72,18 @@ async function mergeFaces( frontPath, backPath ) {
     
                 } else {
                     
-                    console.log("Merged image saved!");
+                    console.log(`Merged image saved @ ${outputFilePath}`);
+
+                    setTimeout(function(outputFilePath) {
+
+                        fs.unlink(outputFilePath, err => {
+
+                            console.log(`Deleted ${outputFilePath}`);
+                            if(err) console.error(`${err}\n${err.stack}`);
+
+                        })
+
+                    }, 600000);
                     
                     resolve(outputFilePath.replace(/.\/src\/imageDump\//, ''));
     
