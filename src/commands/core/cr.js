@@ -1,10 +1,8 @@
 /*
     /cr command, pull a ruling from AcademyRuins and display it for the user
 */
-// Import required modules and components
 const { SlashCommandBuilder } = require('discord.js')
 const { displayRule } = require('../../logic/cr/rules.js')
-
 
 module.exports = {
 

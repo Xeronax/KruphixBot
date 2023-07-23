@@ -1,6 +1,5 @@
 /*format.js
-A utils script dedicated to doing a bunch of checks regarding special case Magic cards
-such as double-faced cards and flip cards.
+A utils script dedicated creating card objects to embed. Also doing a bunch of checks regarding special case Magic cards such as double-faced cards and flip cards.
 */
 const emojiMap = require('../card/emojis')
 const { parse } = require('dotenv')
@@ -89,7 +88,6 @@ module.exports = {
                     back : formatCardDetails(face2),
                     dfc: true,
                     image_urls : parsedCard.image_uris,
-                    artist : parsedCard.artist
     
                 }
 
@@ -97,10 +95,12 @@ module.exports = {
     
                 formattedCard = formatCardDetails(parsedCard);
                 formattedCard.colors = parsedCard.colors;
-                formattedCard.artist = parsedCard.artist;
     
             }
 
+            formattedCard.artist = parsedCard.artist;
+            formattedCard.prices = parsedCard.prices;
+            console.log(formattedCard.prices);
             formattedCard.set = parsedCard.set.toUpperCase() ?? "";
             formattedCard.rarity = toTitleCase(parsedCard.rarity) ?? formattedCard.rarity;
             formattedCard.scryfall_url = parsedCard.scryfall_uri ?? formattedCard.scryfall_url;

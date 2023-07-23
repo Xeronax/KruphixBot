@@ -30,6 +30,7 @@ module.exports = {
             }
             
         }
+        row.addComponents(exit());
 
         return row; 
         
@@ -130,6 +131,19 @@ var scrollDown = () => {
             .setStyle(ButtonStyle.Secondary) 
 
     return button;
+
+}
+
+var price = () => {
+
+    let button = 
+        new ButtonBuilder()
+            .setCustomId('price')
+            .setEmoji('💰')
+            .setStyle(ButtonStyle.Secondary)
+
+    return button;
+
 }
 
 function logRow(row) {
@@ -145,10 +159,10 @@ function logRow(row) {
 
 const buttonConfigMap = {
 
-    image:  [text, imageCrop, exit], 
-    imageCrop: [text, fullImage, exit],
-    ruling: [scrollUp, scrollDown, exit],
-    default: [fullImage, imageCrop, exit],
-    fail: [exit],
-
+    image:  [text, imageCrop, price], 
+    imageCrop: [text, fullImage, price],
+    ruling: [scrollUp, scrollDown, ],
+    price: [text, fullImage, imageCrop],
+    default: [fullImage, imageCrop, price],
+    
 }
