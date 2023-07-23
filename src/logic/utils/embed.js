@@ -15,6 +15,7 @@ const flagToEmbedTypeMap = {
     imageCrop: async (target, flags) => await embedImageCrop(target, flags),
     image: async (target, flags) => await embedImage(target, flags),
     dfc: async (target, flags) => await embedDfc(target, flags),
+    price: async (target, flags) => await embedPrice(target, flags),
 
 }
 
