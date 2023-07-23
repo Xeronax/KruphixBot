@@ -15,7 +15,7 @@ module.exports = {
 
         }
 
-        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.price)  flags.default = true;
+        if(!flags.image && !flags.imageCrop && !flags.ruling)  flags.default = true;
 
         if(len > 1) { row.addComponents(prevCard(), nextCard()) };
 
@@ -162,7 +162,7 @@ const buttonConfigMap = {
     image:  [text, imageCrop], 
     imageCrop: [text, fullImage],
     ruling: [scrollUp, scrollDown],
-    price: [text, fullImage],
+    price: [text],
     default: [fullImage, imageCrop],
     
 }
