@@ -20,13 +20,13 @@ module.exports = {
             const requestedName = interaction.options.getString('query');
             const cards = await Scryfall.requestSearch(requestedName);
     
-            if(Array.isArray(cards)) {
+            try {
     
                 displayCard(interaction, { cardArray: cards,  flags: { imageCrop: true }  }, interaction.client);
     
-            } else {
-    
-                await interaction.reply("No cards were found with those search parameters.")
+            } catch(err) {
+
+                displayCard(interaction, { cardArray: err.response ?? null, flags: { fail: true, imageCrop: true } }, interaction.client)
     
             }
 

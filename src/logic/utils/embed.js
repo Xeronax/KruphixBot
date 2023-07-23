@@ -238,12 +238,25 @@ function embedRuling(ruling, flags = {}) {
 function embedFail(embedTarget, flags = {}) {
 
     let details;
-    if(embedTarget) {
+    const embed = new EmbedBuilder();
+    if((flags == {}) || flags.imageCrop || flags.image) {
 
         details = embedTarget.data.details;
 
     }
-    const embed = new EmbedBuilder()
+    if(flags.ruling) {
+
+        embed
+            .setTitle('Rule Not Found')
+            .setURL('https://yawgatog.com/resources/magic-rules/')
+            .setColor(Colors())
+            .setDescription(`Kruphix Bot found no rules matching that query. Please refine your search or view the rules here: https://yawgatog.com/resources/magic-rules/`)
+
+        return embed;
+
+    }
+    
+    embed
         .setTitle('Card Not Found')
         .setURL('https://scryfall.com/docs/reference')
         .setColor(Colors())
