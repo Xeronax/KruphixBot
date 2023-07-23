@@ -261,7 +261,7 @@ async function embedPrice(parsedCard, flags = {}) {
         .setURL(`${parsedCard.scryfall_url}`)
         .setColor(color)
         .setThumbnail(image_url)
-        .setFooter(footer)
+        if(footer) embed.setFooter({ text: footer })
         .setDescription(`**Prices**`)
         .addFields(
 
