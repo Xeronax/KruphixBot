@@ -7,12 +7,12 @@ module.exports = {
         
         if(flags.fail) {
 
-            for(let func of buttonConfigMap[fail]) { row.addComponents(func()) };
+            for(let func of buttonConfigMap.fail) { row.addComponents(func()) };
 
             return row;
 
         }
-        
+
         if(!flags.image && !flags.imageCrop && !flags.ruling)  flags.default = true;
 
         let row = new ActionRowBuilder()
