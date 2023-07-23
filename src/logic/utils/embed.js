@@ -264,11 +264,12 @@ async function embedPrice(parsedCard, flags = {}) {
         .setFooter(footer)
         .setDescription(`**Prices**`)
         .addFields(
-            
+
             { name: 'USD', value: `\$${prices.usd}`, inline: true },
             { name: 'Foil', value: `\$${prices.usd_foil}`, inline: true },
             { name: 'Etched', value: `\$${prices.usd_etched ?? 'N/A'}`, inline: true },
             { name: 'EUR', value: `€${prices.eur}`, inline: true },
+            { name: 'EUR Foil', value: `€${prices.eur_foil}`, inline: true },
             { name: 'TIX', value: `${prices.tix}`, inline: true }
 
         )
