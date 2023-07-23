@@ -26,7 +26,7 @@ module.exports = {
 
 async function mergeFaces( frontPath, backPath ) {
 
-    const dimensions = await getDimensions;
+    const dimensions = await getDimensions(frontPath, backPath);
 
     return mergeImages([ 
 
