@@ -230,7 +230,7 @@ function embedRuling(ruling, flags = {}) {
 
 async function embedPrice(parsedCard, flags = {}) {
 
-    let image_url, color;
+    let image_url, color, footer, prices;
     if(parsedCard.dfc) {
 
         image_url = parsedCard.front.image_urls.normal;
@@ -250,7 +250,11 @@ async function embedPrice(parsedCard, flags = {}) {
 
     }
 
-    let footer = createFooter(parsedCard, flags);
+    footer = createFooter(parsedCard, flags);
+    prices = parsedCard.prices;
+
+    console.log('Starting price operations');
+    
 
     const embed = new EmbedBuilder()
         .setTitle(`${parsedCard.name ?? (`${parsedCard.front.name} // ${parsedCard.back.name}`)}`)
@@ -258,12 +262,7 @@ async function embedPrice(parsedCard, flags = {}) {
         .setColor(color)
         .setThumbnail(image_url)
         .setFooter(footer)
-
-    for(let price in parsedCard.prices) {
-
-        if(parsedCard.prices[price]) embed.addFields({ name: price, value: parsedCard.prices[price], inline: true });
-
-    }
+        .setDescription(`**Prices**\n\$${prices.usd} / *Foil* ${prices.usd_foil} / ${(`Etched ${prices.usd_etched ?? 'N/A'}`)} / €${prices.eur} / TIX ${prices.tix}`)
 
     return embed;
 
