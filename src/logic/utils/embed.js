@@ -22,7 +22,7 @@ module.exports = {
 
     createEmbed: async function(embedTarget, flags = {}) {
 
-        if(embedTarget.dfc) flags.dfc = true;
+        if(embedTarget?.dfc) flags.dfc = true;
         for(let flag in flags) {
 
             if(flags[flag] && flagToEmbedTypeMap[flag]) {
