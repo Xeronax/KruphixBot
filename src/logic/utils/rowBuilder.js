@@ -15,7 +15,7 @@ module.exports = {
 
         }
 
-        if(!flags.image && !flags.imageCrop && !flags.ruling)  flags.default = true;
+        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.price)  flags.default = true;
 
         if(len > 1) { row.addComponents(prevCard(), nextCard()) };
 
@@ -32,7 +32,7 @@ module.exports = {
         }
         row.addComponents(exit());
 
-        logRow(row);
+        //logRow(row);
 
         return row; 
         
