@@ -65,6 +65,12 @@ async function handleButtonInteraction(interaction) {
                 displayCard(interaction, { flags: flags }, client);
                 break;
 
+            case 'price':
+                flags.price = true;
+                displayCard(interaction, { flags: flags }, client);
+                break;
+            
+
             case 'close':
                 client.stateHandler.deleteState(interaction.message.id);
                 interaction.message.delete();
