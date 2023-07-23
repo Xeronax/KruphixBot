@@ -31,7 +31,7 @@ async function mergeFaces( frontPath, backPath ) {
     return mergeImages([ 
 
         { src: frontPath, x: 0, y: 0 },
-        { src: backPath, x: dimensions.front.length, y: 0 }
+        { src: backPath, x: dimensions.front.length + 200, y: 0 }
 
     ], {
 
@@ -95,6 +95,7 @@ async function downloadImage(url, cardName) {
 
     const filePath = `./src/imageDump/${cardName.replace(/ /g, '_')}.png`;
 
+    console.log(url)
     const response = await axios({
 
         method: 'GET',
