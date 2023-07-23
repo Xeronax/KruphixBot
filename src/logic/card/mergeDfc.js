@@ -129,11 +129,11 @@ async function downloadImage(url, cardName) {
 
 async function getDimensions(frontImagePath, backImagePath) {
 
-    const frontMetaData = sharp(frontImagePath).metadata;
-    const backMetaData = sharp(backImagePath).metadata;
+    const frontMetaData = sharp(frontImagePath).metadata();
+    const backMetaData = sharp(backImagePath).metadata();
     const front = {
 
-        length: frontMetaData.length,
+        length: frontMetaData.width,
         height:  frontMetaData.height
 
     }
@@ -141,7 +141,7 @@ async function getDimensions(frontImagePath, backImagePath) {
 
     const back = {
 
-        length: backMetaData.length,
+        length: backMetaData.width,
         height: backMetaData.height,
 
     }
