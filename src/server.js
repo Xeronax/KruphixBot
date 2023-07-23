@@ -30,7 +30,7 @@ module.exports = {
         if(!port) return null;
 
         const imagePath = `http://${ip}:${port}/imageDump/${name}`;
-        //console.log(`Grabbing imagePath from: ${imagePath}`);
+        console.log(`Grabbing imagePath from: ${imagePath}`);
 
         return imagePath;
 
