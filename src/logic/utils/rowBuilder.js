@@ -5,7 +5,15 @@ module.exports = {
     // Build action row for card navigation
     buildActionRow: function(len = 0, flags = {}) {
         
-        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.fail)  flags.default = true;
+        if(flags.fail) {
+
+            for(let func of buttonConfigMap[fail]) { row.addComponents(func()) };
+
+            return row;
+
+        }
+        
+        if(!flags.image && !flags.imageCrop && !flags.ruling)  flags.default = true;
 
         let row = new ActionRowBuilder()
 
