@@ -47,7 +47,7 @@ async function mergeFaces( frontPath, backPath ) {
 
         const base64Data = b64.replace(/^data:image\/png;base64,/, '');
         const bufferData = Buffer.from(base64Data, 'base64');
-        const outputFilePath = `${(Math.random()).toString().replace(/\./, '')}.png`;
+        const outputFilePath = `${'/src/imageDump/'}${(Math.random()).toString().replace(/\./, '')}.png`;
 
         fs.unlink(frontPath, err => {
 
