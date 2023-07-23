@@ -10,11 +10,11 @@ const noPort = process.env.PORT == ''
 
 const flagToEmbedTypeMap = {
 
+    fail: embedFail,
     ruling: embedRuling,
     imageCrop: async (target, flags) => await embedImageCrop(target, flags),
     image: async (target, flags) => await embedImage(target, flags),
     dfc: async (target, flags) => await embedDfc(target, flags),
-    fail: embedFail,
 
 }
 
@@ -255,7 +255,7 @@ function embedFail(embedTarget, flags = {}) {
         return embed;
 
     }
-    
+
     embed
         .setTitle('Card Not Found')
         .setURL('https://scryfall.com/docs/reference')
