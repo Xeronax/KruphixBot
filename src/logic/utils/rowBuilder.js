@@ -4,6 +4,8 @@ module.exports = {
 
     // Build action row for card navigation
     buildActionRow: function(len = 0, flags = {}) {
+
+        let row = new ActionRowBuilder();
         
         if(flags.fail) {
 
@@ -14,8 +16,6 @@ module.exports = {
         }
 
         if(!flags.image && !flags.imageCrop && !flags.ruling)  flags.default = true;
-
-        let row = new ActionRowBuilder()
 
         if(len > 1) { row.addComponents(prevCard(), nextCard()) };
 
