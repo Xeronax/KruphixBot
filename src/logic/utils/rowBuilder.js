@@ -159,10 +159,10 @@ function logRow(row) {
 
 const buttonConfigMap = {
 
-    image:  [text, imageCrop, price], 
-    imageCrop: [text, fullImage, price],
-    ruling: [scrollUp, scrollDown, ],
-    price: [text, fullImage, imageCrop],
-    default: [fullImage, imageCrop, price],
+    image:  [text, imageCrop], 
+    imageCrop: [text, fullImage],
+    ruling: [scrollUp, scrollDown],
+    price: [text, fullImage],
+    default: [fullImage, imageCrop],
     
 }
