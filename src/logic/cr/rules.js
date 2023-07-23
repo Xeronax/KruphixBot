@@ -60,8 +60,8 @@ module.exports = {
             } catch(error) {
 
                 console.error(`Error reading rules text: ${error.message}\n${error.stack}`);
-                let embed = await createEmbed(null, { ruling: true, fail: true });
-                const row = buildActionRow(0, { ruling: true, fail: true });
+                let embed = await createEmbed(null, { fail: true, ruling: true  });
+                const row = buildActionRow(0, { fail: true, ruling: true  });
 
                 interaction.reply({
 
