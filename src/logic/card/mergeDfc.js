@@ -86,7 +86,7 @@ async function mergeFaces( frontPath, backPath ) {
 
                         }
 
-                    }, 10000);
+                    }, 600000);
                     
                     resolve(outputFilePath.replace(/.\/src\/imageDump\//, ''));
     

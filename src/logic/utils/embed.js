@@ -262,7 +262,16 @@ async function embedPrice(parsedCard, flags = {}) {
         .setColor(color)
         .setThumbnail(image_url)
         .setFooter(footer)
-        .setDescription(`**Prices**\n\$${prices.usd} / *Foil* ${prices.usd_foil} / ${(`Etched ${prices.usd_etched ?? 'N/A'}`)} / €${prices.eur} / TIX ${prices.tix}`)
+        .setDescription(`**Prices**`)
+        .addFields(
+            
+            { name: 'USD', value: `\$${prices.usd}`, inline: true },
+            { name: 'Foil', value: `\$${prices.usd_foil}`, inline: true },
+            { name: 'Etched', value: `\$${prices.usd_etched ?? 'N/A'}`, inline: true },
+            { name: 'EUR', value: `€${prices.eur}`, inline: true },
+            { name: 'TIX', value: `${prices.tix}`, inline: true }
+
+        )
 
     return embed;
 
