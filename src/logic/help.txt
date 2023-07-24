@@ -8,5 +8,6 @@ Below, you will find the chants, the invocations, that you must utter to call up
 `/help` - Should you lose your way in this journey of understanding, this command will serve as your beacon. Invoke it to receive a comprehensive list of the services I can offer you, Kruphix Bot's commands.
 `/art` - The multiverse is filled with astounding beauty and breathtaking sights, all captured in the artistry of the cards themselves. Use this command to gaze upon the full cropped image of a card's art and pay tribute to its creator, the artist.
 `/feedback` - Through this command, you may share your thoughts and experiences directly with me. Whether you have suggestions, critiques, or simply wish to express your appreciation or curiosity, don't hesitate.
+`/price` - The mortal realm often demands knowledge of a card's value in worldly terms. Use this command to call forth information about a card's market price.
 
 https://github.com/Xeronax/KruphixBot

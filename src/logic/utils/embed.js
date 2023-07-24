@@ -253,7 +253,7 @@ async function embedPrice(parsedCard, flags = {}) {
     footer = createFooter(parsedCard, flags);
     prices = parsedCard.prices;
 
-    console.log('Starting price operations');
+    //console.log('Starting price operations');
     
 
     const embed = new EmbedBuilder()
