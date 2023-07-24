@@ -264,16 +264,29 @@ async function embedPrice(parsedCard, flags = {}) {
         .setThumbnail(image_url)
         if(footer) embed.setFooter({ text: footer })
         .setDescription(`**Prices**`)
-        .addFields(
-
-            { name: 'USD', value: `\$${prices.usd}`, inline: true },
-            { name: 'Foil', value: `\$${prices.usd_foil}`, inline: true },
-            { name: 'Etched', value: `\$${prices.usd_etched ?? 'N/A'}`, inline: true },
-            { name: 'EUR', value: `€${prices.eur}`, inline: true },
-            { name: 'EUR Foil', value: `€${prices.eur_foil}`, inline: true },
-            { name: 'TIX', value: `${prices.tix}`, inline: true }
-
-        )
+        if (prices.usd) {
+            embed.addFields({ name: 'USD', value: `\$${prices.usd}`, inline: true })
+        }
+        
+        if (prices.usd_foil) {
+            embed.addFields({ name: 'Foil', value: `\$${prices.usd_foil}`, inline: true })
+        }
+        
+        if (prices.usd_etched) {
+            embed.addFields({ name: 'Etched', value: `\$${prices.usd_etched}`, inline: true })
+        }
+        
+        if (prices.eur) {
+            embed.addFields({ name: 'EUR', value: `€${prices.eur}`, inline: true })
+        }
+        
+        if (prices.eur_foil) {
+            embed.addFields({ name: 'EUR Foil', value: `€${prices.eur_foil}`, inline: true })
+        }
+        
+        if (prices.tix) {
+            embed.addFields({ name: 'TIX', value: `${prices.tix}`, inline: true })
+        }
 
     return embed;
 

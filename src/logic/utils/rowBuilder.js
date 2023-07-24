@@ -7,15 +7,8 @@ module.exports = {
 
         let row = new ActionRowBuilder();
         
-        if(flags.fail) {
 
-            for(let func of buttonConfigMap.fail) { row.addComponents(func()) };
-
-            return row;
-
-        }
-
-        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.price)  flags.default = true;
+        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.price && !flags.fail)  flags.default = true;
 
         if(len > 1) { row.addComponents(prevCard(), nextCard()) };
 
