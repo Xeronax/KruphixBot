@@ -253,6 +253,7 @@ async function embedPrice(parsedCard, flags = {}) {
     footer = createFooter(parsedCard, flags);
     prices = parsedCard.prices;
 
+    console.log(prices);
     //console.log('Starting price operations');
     
 

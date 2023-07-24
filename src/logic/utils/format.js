@@ -14,9 +14,11 @@ function replaceManaSymbolsWithEmojis(text) {
     return text.replace(/{(\d+|[a-z]{1,2})}/gi, function(match, group1) {
 
         const emoji = emojiMap.get(group1.toLowerCase());
+        
         return emoji ? `<${emoji}>` : match;
 
     });
+
 }
 
 function italicTextInParentheses(text) {
