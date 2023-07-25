@@ -18,9 +18,10 @@ module.exports = {
         async execute(interaction) {
 
             const requestedName = interaction.options.getString('query');
-            const cards = await Scryfall.requestSearch(requestedName);
     
             try {
+
+                const cards = await Scryfall.requestSearch(requestedName);
     
                 displayCard(interaction, { cardArray: cards,  flags: { imageCrop: true }  }, interaction.client);
     
