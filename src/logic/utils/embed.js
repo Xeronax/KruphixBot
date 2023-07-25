@@ -24,7 +24,7 @@ module.exports = {
     createEmbed: async function(embedTarget, flags = {}) {
 
         if(embedTarget?.dfc) flags.dfc = true;
-        if(flags.fail) return [ await flagToEmbedTypeMap.fail(embedTarget, flags) ]
+        if(flags.fail) return [ embedFail(embedTarget, flags) ]
         for(let flag in flags) {
 
             if(flags[flag] && flagToEmbedTypeMap[flag]) {
@@ -313,6 +313,7 @@ function embedFail(embedTarget, flags = {}) {
 
     }
 
+
     embed
         .setTitle('Card Not Found')
         .setURL('https://scryfall.com/docs/reference')
@@ -321,5 +322,5 @@ function embedFail(embedTarget, flags = {}) {
         .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgamepedia.cursecdn.com%2Fmtgsalvation_gamepedia%2Fa%2Fa2%2FScryfall.jpg')
     
     return embed;
-}
 
+}
