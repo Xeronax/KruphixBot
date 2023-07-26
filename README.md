@@ -16,8 +16,8 @@ KruphixBot is a Discord bot that fetches and displays information about Magic: T
 - `/help`: Lists all of Kruphix Bot's features.
 - `/card <query>`: Fetches a card with the specified name or Scryfall syntax and displays its details.
 - `/cr <rule>`: Fetches a rule by number. (Ex. '704', '104.1', '601.3a').
-- `/art`: Displays a full cropped image of a card's art and the artist.
-- `/price`: Displays pricing information for a card
+- `/art <query>`: Displays a full cropped image of a card's art and the artist.
+- `/price <query>`: Displays pricing information for a card
 
 ## Getting Started
 
