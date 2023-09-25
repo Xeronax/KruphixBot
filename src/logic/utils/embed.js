@@ -337,9 +337,7 @@ function embedFail(embedTarget, flags = {}) {
 
 function embedChart(chart, flags) {
 
-    console.log(`Chart URL: ${chart}`);
     const embed = new EmbedBuilder()
-        .setTitle('Chart')
         .setImage(chart)
 
     return embed;
