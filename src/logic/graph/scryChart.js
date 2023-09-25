@@ -92,6 +92,7 @@ function createScatterPlot(dataset) {
                 },
                 y: {
                     type: 'linear',
+                    beginAtZero: true,
                 },
             },
         },
