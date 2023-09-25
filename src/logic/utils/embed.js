@@ -335,10 +335,9 @@ function embedFail(embedTarget, flags = {}) {
 
 function embedChart(chart, flags) {
 
+    console.log(chart);
     const embed = new EmbedBuilder()
-    .setColor(Colors())
-    .setImage(chart)
-    .setFooter( { text: 'https://github.com/Xeronax/KruphixBot'} )
+        .setImage(chart)
 
     return embed;
 
