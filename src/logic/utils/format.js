@@ -102,6 +102,7 @@ module.exports = {
 
             formattedCard.artist = parsedCard.artist;
             formattedCard.prices = parsedCard.prices;
+            formattedCard.date = new Date(parsedCard.released_at);
             formattedCard.set = parsedCard.set.toUpperCase() ?? "";
             formattedCard.rarity = toTitleCase(parsedCard.rarity) ?? formattedCard.rarity;
             formattedCard.scryfall_url = parsedCard.scryfall_uri ?? formattedCard.scryfall_url;

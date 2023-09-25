@@ -9,19 +9,36 @@ const queue = [];
 
 module.exports = {
 
-    requestSearch: async function (input) {
+    requestSearch: async function (input, page = 1) {
 
         return new Promise((resolve, reject) => {
 
             queue.push({
 
                 query: input,
+                currentPage: page,
+                url: 'cards/search',
                 resolve: resolve,
                 reject: reject
 
             });
 
         });
+
+    },
+
+    requestSets: async function() {
+
+        return new Promise((resolve, reject) => {
+
+            queue.push({
+
+                url:'sets',
+                resolve: resolve,
+                reject: reject
+
+            })
+        })
 
     }
 
@@ -32,27 +49,32 @@ setInterval( async () => {
     if(queue.length < 1) return;
     let request = queue.shift();
 
+    let currentPage = request.currentPage;
+    const allData = []
+
     try {
 
-        const response = await axios.get(`${scryfallApi}/cards/search`, {
+        const response = await axios.get(`${scryfallApi}/${request.url}`, {
 
             params: {
 
               q: request.query,
+              page: currentPage ?? 1,
 
             },
 
         });
-        
-        if(response.data.data) {
 
-            request.resolve(response.data.data);
+        allData.push(...response.data.data);
 
-        } else {
+        if(response.data.has_more) {
 
-            request.reject(response.data);
+            currentPage++;
+            allData.push(...(await module.exports.requestSearch(request.query, currentPage)))
 
         }
+        
+        request.resolve(allData);
 
     } catch(error) {
 

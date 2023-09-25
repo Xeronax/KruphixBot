@@ -1,4 +1,4 @@
-const { ButtonBuilder, ButtonStyle, ActionRowBuilder, MessageActionRow } = require('discord.js')
+const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js')
 
 module.exports = {
 
@@ -8,7 +8,7 @@ module.exports = {
         let row = new ActionRowBuilder();
         
 
-        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.price && !flags.fail)  flags.default = true;
+        if(!flags.image && !flags.imageCrop && !flags.ruling && !flags.price && !flags.fail && !flags.chart)  flags.default = true;
 
         if(len > 1) { row.addComponents(prevCard(), nextCard()) };
 
@@ -141,6 +141,18 @@ var price = () => {
 
 }
 
+var verbose = () => {
+
+    let button = 
+        new ButtonBuilder()
+            .setCustomId('verbose')
+            .setEmoji('❓')
+            .setStyle(ButtonStyle.Secondary)
+
+    return button;
+    
+}
+
 function logRow(row) {
 
     console.log(`------------------------\nROW: ${Object.keys(row.components)}\n-------------------------------`);
@@ -158,6 +170,7 @@ const buttonConfigMap = {
     imageCrop: [text, fullImage],
     ruling: [scrollUp, scrollDown],
     price: [text],
+    chart: [verbose],
     default: [fullImage, imageCrop],
     
 }

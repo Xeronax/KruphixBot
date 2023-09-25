@@ -6,7 +6,7 @@ const axios = require('axios');
 const fs = require('fs');
 const { Canvas, Image } = require('canvas');
 const { getImage } = require('../../server');
-const sharp = require('sharp');
+//const sharp = require('sharp');
 
 
 module.exports = {

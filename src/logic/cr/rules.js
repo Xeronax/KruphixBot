@@ -3,7 +3,6 @@
 */
 
 const fs = require('fs').promises;
-const displayCard = require('../card/displayCard');
 const { createEmbed } = require('../utils/embed');
 const { buildActionRow } = require('../utils/rowBuilder')
 let rulesText = '';
@@ -61,10 +60,12 @@ module.exports = {
 
                 console.error(`Error reading rules text: ${error.message}\n${error.stack}`);
                 let embed = await createEmbed(null, { fail: true, ruling: true  });
+                const row = buildActionRow(0, { fail: true, ruling: true  });
 
                 interaction.reply({
 
                     embeds: embed,
+                    components: [row],
                     ephemeral: true
 
                 });

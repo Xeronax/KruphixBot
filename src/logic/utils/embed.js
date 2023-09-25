@@ -16,12 +16,13 @@ const flagToEmbedTypeMap = {
     image: async (target, flags) => await embedImage(target, flags),
     dfc: async (target, flags) => await embedDfc(target, flags),
     price: async (target, flags) => await embedPrice(target, flags),
+    chart: async (target, flags) => await embedChart(target, flags)
 
 }
 
 module.exports = {
 
-    createEmbed: async function(embedTarget, flags = {}) {
+    createEmbed: async function(embedTarget = null, flags = {}) {
 
         if(embedTarget?.dfc) flags.dfc = true;
         if(flags.fail) return [ embedFail(embedTarget, flags) ]
@@ -222,7 +223,6 @@ function embedRuling(ruling, flags = {}) {
         .setURL(`https://yawgatog.com/resources/magic-rules/#R${title.replace(/[.]+/g, '')}`)
         .setColor(Colors())
         .setDescription(ruling)
-        .setThumbnail('https://static1.gamerantimages.com/wordpress/wp-content/uploads/2020/02/magic-the-gathering-logo.jpg')
 
     return embed;
 
@@ -312,6 +312,14 @@ function embedFail(embedTarget, flags = {}) {
         return embed;
 
     }
+    if(flags.chart) {
+
+        embed
+            .setTitle('Error Creating Chart')
+            .setColor(Colors())
+            .setDescription('Kruphix Bot encountered an error completing your requested chart. Use /help for more information on using the command.')
+        
+        }
 
 
     embed
@@ -321,6 +329,17 @@ function embedFail(embedTarget, flags = {}) {
         .setDescription(`${details ?? 'An error occured while making your request to Scryfall.'}`)
         .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgamepedia.cursecdn.com%2Fmtgsalvation_gamepedia%2Fa%2Fa2%2FScryfall.jpg')
     
+    return embed;
+
+}
+
+function embedChart(chart, flags) {
+
+    const embed = new EmbedBuilder()
+    .setColor(Colors())
+    .setImage(chart)
+    .setFooter( { text: 'https://github.com/Xeronax/KruphixBot'} )
+
     return embed;
 
 }

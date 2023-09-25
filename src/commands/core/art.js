@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const Scryfall = require('../../logic/utils/scry');
+const { requestSearch } = require('../../logic/utils/scry');
 const { displayCard } = require('../../logic/card/displayCard')
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
     
             try {
 
-                const cards = await Scryfall.requestSearch(requestedName);
+                const cards = await requestSearch(requestedName);
     
                 displayCard(interaction, { cardArray: cards,  flags: { imageCrop: true }  }, interaction.client);
     
