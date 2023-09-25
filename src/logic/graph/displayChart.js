@@ -38,10 +38,11 @@ module.exports = {
 
             chartURL = graph(chartType, queriesAndNames);
             const flags = { chart: true };
+            const embed = await createEmbed(chartURL, flags);
             
             interaction.reply({
 
-                embed: createEmbed(chartURL, flags),
+                embed: embed,
                 components: [buildActionRow(0, flags)],
                 fetchReply: true
 
