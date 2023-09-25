@@ -39,6 +39,8 @@ module.exports = {
             chartURL = graph(chartType, queriesAndNames);
             const flags = { chart: true };
             const embed = await createEmbed(chartURL, flags);
+
+            console.log(embed);
             
             interaction.reply({
 
