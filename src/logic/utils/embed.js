@@ -24,6 +24,8 @@ module.exports = {
 
     createEmbed: async function(embedTarget = null, flags = {}) {
 
+        console.log(`${embedTarget} /// ${flags}`);
+
         if(embedTarget?.dfc) flags.dfc = true;
         if(flags.fail) return [ embedFail(embedTarget, flags) ]
         for(let flag in flags) {
