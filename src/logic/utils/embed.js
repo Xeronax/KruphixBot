@@ -16,7 +16,7 @@ const flagToEmbedTypeMap = {
     image: async (target, flags) => await embedImage(target, flags),
     dfc: async (target, flags) => await embedDfc(target, flags),
     price: async (target, flags) => await embedPrice(target, flags),
-    chart: async (target, flags) => await embedChart(target, flags)
+    chart: embedChart
 
 }
 

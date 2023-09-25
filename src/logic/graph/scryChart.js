@@ -103,7 +103,7 @@ function createScatterPlot(dataset) {
     const image = canvas.toBuffer();
     console.log('Writing image');
 
-    const name = `chart_${Math.random()}.png`;
+    const name = `chart_${Math.random() * Math.pow(10, 17)}.png`;
     fs.writeFileSync(`./src/imageDump/${name}`, image);
 
     setInterval(() => {
