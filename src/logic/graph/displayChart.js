@@ -44,7 +44,7 @@ module.exports = {
             
             interaction.reply({
 
-                embed: embed,
+                embeds: embed,
                 components: [buildActionRow(0, flags)],
                 fetchReply: true
 
@@ -67,7 +67,7 @@ module.exports = {
             console.error(`${error.message}: ${error.stack}`);
             interaction.reply({
                 
-                embed: createEmbed(null, { fail: true, chart: true }),
+                embeds: createEmbed(null, { fail: true, chart: true }),
                 ephemeral: true
                 
             })
