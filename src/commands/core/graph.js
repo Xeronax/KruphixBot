@@ -40,7 +40,7 @@ module.exports = {
 
     async execute(interaction) {
 
-        interaction.deferReply();
+        await interaction.deferReply();
 
         await requestGraph(interaction, interaction.client);
 

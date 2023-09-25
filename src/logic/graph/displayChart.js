@@ -42,7 +42,7 @@ module.exports = {
 
             console.log(embed);
             
-            interaction.followUp({
+            await interaction.followUp({
 
                 embeds: embed,
                 components: [buildActionRow(0, flags)],
@@ -65,11 +65,10 @@ module.exports = {
         } catch(error) {
 
             console.error(`${error.message}: ${error.stack}`);
-            interaction.reply({
+            await interaction.reply({
                 
                 embeds: createEmbed(null, { fail: true, chart: true }),
-                ephemeral: true
-                
+                                
             })
         } 
 
