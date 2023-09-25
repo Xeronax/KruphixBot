@@ -18,6 +18,8 @@ module.exports = {
         const queriesAndNames = splitQuery(constants, independentVars, normalize);
         const promiseArray = [];
 
+        interaction.deferReply();
+
         for(let query of queriesAndNames) {
 
             promiseArray.push(Scryfall.requestSearch(query.syntax).then(data => query.data = data).catch(error => { console.log(`No results found for ${query.syntax}`)}));
@@ -42,7 +44,7 @@ module.exports = {
 
             console.log(embed);
             
-            interaction.reply({
+            interaction.followUp({
 
                 embeds: embed,
                 components: [buildActionRow(0, flags)],
