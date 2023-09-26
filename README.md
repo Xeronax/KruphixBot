@@ -45,7 +45,7 @@ If you encounter any issues or have any suggestions for improvements, please ope
 - Search suggestions
 - What's in standard
 
-##Support the Project
+## Support the Project
 
 If Kruphix Bot has been useful for you, consider supporting the project: https://ko-fi.com/xeronax
 
