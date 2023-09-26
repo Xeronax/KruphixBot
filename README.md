@@ -17,7 +17,8 @@ KruphixBot is a Discord bot that fetches and displays information about Magic: T
 - `/card <query>`: Fetches a card with the specified name or Scryfall syntax and displays its details.
 - `/cr <rule>`: Fetches a rule by number. (Ex. '704', '104.1', '601.3a').
 - `/art <query>`: Displays a full cropped image of a card's art and the artist.
-- `/price <query>`: Displays pricing information for a card
+- `/price <query>`: Displays pricing information for a card.
+-  `/graph <Chart Type> <Independent Variables> <Constants> <Normalize? (True/False)>`: Plots a chart over the data of the specificed Scryfall syntax.
 
 ## Getting Started
 
@@ -27,7 +28,7 @@ You can add Kruphix Bot to your server by clicking [here](https://discord.com/ap
 
 Kruphix Bot is now able to create charts displaying information over large swathes of MTG data using [Scryfall Syntax](https://scryfall.com/docs/syntax). Currently, it only supports Scatter charts with a least squares regression best fit line.
 
-To start creating charts or graphs, use `/graph <Chart Type Here> <Independent Variables Here> <Insert Constant Variables Here><Normalize? (True/False)>`
+To start creating charts or graphs, use `/graph <Chart Type> <Independent Variables> <Constants> <Normalize? (True/False)>`
 
 - Chart Type: Currently only accepts `Scatter`, but will soon support `Bar`, `Bubble`, `Pie`, etc.
 - Independent Variables: Scryfall syntax here is the data that you want to plot. Separate multiple independent variables with a semicolon and you may use brackets to indicate names. (ex. `[3 Mana Creatures] t:creature mv=3; [2 Mana Creatures] t:creature mv=2`
