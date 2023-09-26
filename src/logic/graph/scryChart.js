@@ -107,7 +107,7 @@ function createScatterPlot(dataset) {
 
         fs.unlink(`./src/imageDump/${name}`, error => { });
 
-    }, 600000)
+    }, 1800000)
 
     return name;
 
