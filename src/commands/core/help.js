@@ -6,6 +6,7 @@ fs.readFile('./src/logic/help.txt', 'utf-8')
     .then(content => {
 
         helpMessage = content;
+        console.log(helpMessage);
 
     })
     .catch(error => {
