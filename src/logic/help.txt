@@ -10,4 +10,15 @@ Below, you will find the chants, the invocations, that you must utter to call up
 `/feedback` - Through this command, you may share your thoughts and experiences directly with me. Whether you have suggestions, critiques, or simply wish to express your appreciation or curiosity, don't hesitate.
 `/price` - The mortal realm often demands knowledge of a card's value in worldly terms. Use this command to call forth information about a card's market price.
 
+**Graphing & Charting** [**Beta**]
+
+Kruphix Bot is now able to create charts displaying information over large swathes of MTG data using Scryfall Syntax (https://scryfall.com/docs/syntax). Currently, it only supports Scatter charts with a least squares regression best fit line.
+
+To start creating charts or graphs, use `/graph <Chart Type> <Independent Variables> <Constants> <Normalize? (True/False)>`
+
+- __Chart Type__: Currently only accepts `Scatter`, but will soon support `Bar`, `Bubble`, `Pie`, etc.
+- __Independent Variables__: Scryfall syntax here is the data that you want to plot. Separate multiple independent variables with a semicolon and you may use brackets to indicate names. (ex. `[3 Mana Creatures] t:creature mv=3; [2 Mana Creatures] t:creature mv=2`
+- __Constants__: Scryfall syntax here will be blanket applied to each independent variable, mostly saves keystrokes (ex. The aforementinoed chart could also be generated using `<[3 Mana Creatures] mv=3; [2 Mana Creatures] mv=2> <t:creature>`
+- __Normalize?__: This is a true/false value. True by default, it will append some generally useful syntax to the end of each independent variable: *"is:firstprinting -is:reprint -is:extra -is:promo -is:oversized game:paper (st:core or st:expansion)"* You can enter false for this variable and create the same effect manually using Constants.
+
 https://github.com/Xeronax/KruphixBot
