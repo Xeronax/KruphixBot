@@ -99,11 +99,7 @@ function createScatterPlot(dataset) {
         plugins: [plugin],  
     });
 
-
-    console.log('Making image');
     const image = canvas.toBuffer();
-    console.log('Writing image');
-
     const name = `chart_${Math.random() * Math.pow(10, 17)}.png`;
     fs.writeFileSync(`./src/imageDump/${name}`, image);
 
@@ -228,8 +224,6 @@ function createBestFitLine(data) {
 
     }
 
-    console.log(`sumXY: ${sumXY}`);
-
     const sumXtimesSumY = () => {
 
         data.forEach(coordinate => { 
@@ -262,10 +256,6 @@ function createBestFitLine(data) {
     const b = (sumY - (slope * sumX))/numEntries;
 
     const bestFitLine = data.map(coordinate => [coordinate.x, (coordinate.x * slope) + b]);
-
-    console.log(`Slope: ${slope}\nb: ${b}`);
-
-    console.log(bestFitLine);
 
     return bestFitLine;
 

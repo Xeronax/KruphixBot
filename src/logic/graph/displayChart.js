@@ -29,7 +29,6 @@ module.exports = {
         for(let query of queriesAndNames) {
 
             query.data = formatCard(query.data);
-            console.log(`Length of ${query.name}: ${query.data.length}`);
 
         }
 
@@ -39,8 +38,6 @@ module.exports = {
             chartURL = graph(chartType, queriesAndNames);
             const flags = { chart: true };
             const embed = await createEmbed(chartURL, flags);
-
-            console.log(embed);
             
             await interaction.followUp({
 
