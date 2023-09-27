@@ -54,9 +54,14 @@ module.exports = {
 
     deleteState: function(messageID) {
 
-        if(!messageStates.has(messageID)) return;
+        if(!messageStates.has(messageID)) {
+            
+            console.log(`Attempt to delete ${messageID} failed. Message no longer exists.`);
+            return;
+
+        }
     
-        //console.log(`${messageID} was timed out or closed.`);
+        console.log(`${messageID} was timed out or closed.`);
         messageStates.delete(messageID);
     
     }
