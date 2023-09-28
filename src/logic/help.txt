@@ -10,10 +10,4 @@ Below, you will find the chants, the invocations, that you must utter to call up
 `/feedback` - Through this command, you may share your thoughts and experiences directly with me. Whether you have suggestions, critiques, or simply wish to express your appreciation or curiosity, don't hesitate.
 `/price` - The mortal realm often demands knowledge of a card's value in worldly terms. Use this command to call forth information about a card's market price.
 
-**Graphing & Charting** [**Beta**]
-
-Kruphix Bot is now able to create charts displaying information over large swathes of MTG data using Scryfall Syntax (https://scryfall.com/docs/syntax). Currently, it only supports Scatter charts with a least squares regression best fit line.
-
-To start creating charts or graphs, use `/graph <Chart Type> <Independent Variables> <Constants> <Normalize? (True/False)>` with your desired Scryfall syntax.
-
 https://github.com/Xeronax/KruphixBot
