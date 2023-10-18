@@ -3,7 +3,7 @@
 */
 const mergeImages = require('merge-images');
 const axios = require('axios');
-const fs = require('fs').promises;
+const fs = require('fs');
 const { Canvas, Image } = require('canvas');
 const { getImage } = require('../../server');
 const imageinfo = require('imageinfo');
@@ -142,8 +142,8 @@ async function downloadImage(url) {
 
 async function getDimensions(frontImagePath, backImagePath) {
 
-    const frontMetaData = imageinfo(await fs.readFile(frontImagePath));
-    const backMetaData = imageinfo(await fs.readFile(backImagePath));
+    const frontMetaData = imageinfo(await fs.promises.readFile(frontImagePath));
+    const backMetaData = imageinfo(await fs.promises.readFile(backImagePath));
     
     const front = {
 
