@@ -1,7 +1,7 @@
-
-const { formatCard } = require('../utils/format');
-const Scryfall = require('../utils/scry');
-const { graph } = require('./scryChart.js');
+/*
+*displayChart.js handles everything having to do with the interaction and the reply
+*/
+const { graph } = require('./scrychart.js');
 const { createEmbed } = require("../utils/embed");
 const { buildActionRow } = require("../utils/rowBuilder")
 
@@ -16,26 +16,11 @@ module.exports = {
         const chartType = interaction.options.getString('charttype');
         const normalize = interaction.options.getBoolean('normalize') ?? true;
         const queriesAndNames = splitQuery(constants, independentVars, normalize);
-        const promiseArray = [];
-
-        for(let query of queriesAndNames) {
-
-            promiseArray.push(Scryfall.requestSearch(query.syntax).then(data => query.data = data).catch(error => { console.log(`No results found for ${query.syntax}`)}));
-
-        }
-
-        await Promise.all(promiseArray);
-
-        for(let query of queriesAndNames) {
-
-            query.data = formatCard(query.data);
-
-        }
 
         let chartURL;
         try {
 
-            chartURL = graph(chartType, queriesAndNames);
+            chartURL = await graph(chartType, queriesAndNames);
             const flags = { chart: true };
             const embed = await createEmbed(chartURL, flags);
             
@@ -82,7 +67,6 @@ function splitQuery(constants, independentVars, normalize) {
 
     for(let independentVariable of independentVariableSplit) {
 
-        console.log(independentVariable)
         const input = {
             
             syntax: independentVariable.replace(/\[.*\]/g, ""),
@@ -92,8 +76,6 @@ function splitQuery(constants, independentVars, normalize) {
         
         if(constants) input.syntax = `${input.syntax} ${constants}`;
         if(normalize) input.syntax = `${input.syntax} ${normalizeString}`;
-
-        console.log(`Pushing ${input.name} and ${input.syntax}`);
 
         result.push(input);
 

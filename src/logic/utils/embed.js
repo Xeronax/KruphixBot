@@ -336,7 +336,7 @@ function embedFail(embedTarget, flags = {}) {
 }
 
 function embedChart(chart, flags) {
-
+    
     const embed = new EmbedBuilder()
         .setImage(chart)
 

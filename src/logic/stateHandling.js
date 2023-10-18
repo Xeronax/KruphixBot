@@ -61,7 +61,7 @@ module.exports = {
 
         }
     
-        console.log(`${messageID} was timed out or closed.`);
+        console.log(`Timed out ${messageID}.`);
         messageStates.delete(messageID);
     
     }
