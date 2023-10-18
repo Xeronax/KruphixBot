@@ -1,7 +1,7 @@
 /*
 *displayChart.js handles everything having to do with the interaction and the reply
 */
-const { graph } = require('./scrychart.js');
+const { graph } = require('./scryChart.js');
 const { createEmbed } = require("../utils/embed");
 const { buildActionRow } = require("../utils/rowBuilder")
 
